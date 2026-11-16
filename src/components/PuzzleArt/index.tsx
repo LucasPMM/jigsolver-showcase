@@ -1,0 +1,1 @@
+export { PuzzleArt } from './PuzzleArt'
