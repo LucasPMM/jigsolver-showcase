@@ -5,38 +5,39 @@ import { InlineVideo } from '../../media/InlineVideo'
 import { Button } from '../../ui/Button'
 import { Icon } from '../../ui/Icon'
 import { Pressable } from '../../ui/Pressable'
+import { ShouldRender } from '../../ui/ShouldRender'
 import { Text } from '../../ui/Text'
 
 export const Hero = () => {
-  const { lang, c, open, motionPaused, setMotionPaused } = useShowcase()
+  const { lang, c, open, motionPaused, toggleMotion } = useShowcase()
 
   return (
     <section className="hero section-wrap" id="top">
       <div className="hero-copy">
         <div className="eyebrow">
-          <span className="status-dot" />
+          <Text as="span" className="status-dot" />
           {c.eyebrow}
         </div>
-        <h1>
+        <Text as="h1">
           {c.hero}
           <br />
-          <em>{c.heroEm}</em>
-        </h1>
+          <Text as="em">{c.heroEm}</Text>
+        </Text>
         <Text className="hero-intro">{c.intro}</Text>
         <div className="hero-actions">
           <Button variant="primary" onClick={() => open(0)}>
             {c.watch}
           </Button>
-          <a className="button text-button" href="#journey">
+          <Pressable className="button text-button" href="#journey">
             {c.explore}
             <Icon name="arrow" size={18} />
-          </a>
+          </Pressable>
         </div>
         <Pressable
           type="button"
           className="motion-toggle"
           aria-pressed={motionPaused}
-          onClick={() => setMotionPaused(!motionPaused)}
+          onClick={toggleMotion}
         >
           {lang === 'en'
             ? motionPaused
@@ -46,19 +47,19 @@ export const Hero = () => {
               ? 'Retomar animações'
               : 'Pausar animações'}
         </Pressable>
-        <span className="research-badge">
-          <span />
+        <Text as="span" className="research-badge">
+          <Text as="span" />
           {c.researchBadge}
-        </span>
+        </Text>
       </div>
       <div className="hero-visual">
         <div className="visual-label">
-          <span className="mini-dots">
+          <Text as="span" className="mini-dots">
             <i />
             <i />
             <i />
-          </span>
-          <span>JigSolver / workspace</span>
+          </Text>
+          <Text as="span">JigSolver / workspace</Text>
           <Icon name="expand" size={14} />
         </div>
         <Pressable
@@ -67,16 +68,16 @@ export const Hero = () => {
           onClick={() => open(0)}
           aria-label={c.fullscreen}
         >
-          {media[0].ready ? (
+          <ShouldRender if={media[0].ready} fallback={<PuzzleArt />}>
             <InlineVideo index={0} label={c.heroCaption} />
-          ) : (
-            <PuzzleArt />
-          )}
+          </ShouldRender>
         </Pressable>
         <div className="visual-footer">
-          <span className="status-dot" />
+          <Text as="span" className="status-dot" />
           {c.heroCaption}
-          <span className="media-index">01—03</span>
+          <Text as="span" className="media-index">
+            01—03
+          </Text>
         </div>
         <div className="floating-note">
           <Icon name="puzzle" />{' '}

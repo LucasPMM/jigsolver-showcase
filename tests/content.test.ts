@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { media } from '../src/data/media'
 import { en, pt } from '../src/locales/content'
 
 const shape = (value: unknown): unknown => {
@@ -16,12 +17,13 @@ describe('translations', () => {
   it('has complete matching Portuguese and English structures', () => {
     expect(shape(en)).toEqual(shape(pt))
   })
-  it('contains three demonstrations and three journey steps', () => {
-    expect(pt.demos).toHaveLength(3)
+  it('matches the media catalogue and contains three journey steps', () => {
+    expect(pt.demos).toHaveLength(media.length)
+    expect(en.demos).toHaveLength(media.length)
     expect(en.steps).toHaveLength(3)
   })
   it('makes the research limits explicit', () => {
-    expect(pt.evidenceNote).toContain('não uma garantia')
-    expect(en.evidenceNote).toContain('not a guarantee')
+    expect(pt.photosNote).toContain('Não há gabarito independente')
+    expect(en.photosNote).toContain('no independent ground truth')
   })
 })

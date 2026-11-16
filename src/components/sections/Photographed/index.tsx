@@ -1,0 +1,1 @@
+export { Photographed } from './Photographed'

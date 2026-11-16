@@ -6,22 +6,23 @@ import { Demos } from '../../components/sections/Demos'
 import { Experience } from '../../components/sections/Experience'
 import { Hero } from '../../components/sections/Hero'
 import { Journey } from '../../components/sections/Journey'
-import { Research } from '../../components/sections/Research'
+import { Photographed } from '../../components/sections/Photographed'
+import { Pressable } from '../../components/ui/Pressable'
 import { useShowcase } from '../../contexts/ShowcaseContext'
 export const App = () => {
   const { c } = useShowcase()
   return (
     <>
-      <a className="skip-link" href="#main">
+      <Pressable className="skip-link" href="#main">
         {c.skip}
-      </a>
+      </Pressable>
       <Header />
       <main id="main">
         <Hero />
         <Journey />
         <Experience />
         <Demos />
-        <Research />
+        <Photographed />
         <About />
       </main>
       <Footer />

@@ -9,12 +9,12 @@ export const Footer = () => {
 
   return (
     <footer className="section-wrap footer">
-      <a className="brand" href="#top">
-        <span className="brand-mark">
+      <Pressable className="brand" href="#top">
+        <Text as="span" className="brand-mark">
           <Icon name="puzzle" />
-        </span>
+        </Text>
         JigSolver.
-      </a>
+      </Pressable>
       <Text>{c.footer}</Text>
       <Pressable
         type="button"
@@ -26,14 +26,14 @@ export const Footer = () => {
       <ShouldRender if={credits}>
         <div className="credits">
           <Text>{c.creditText}</Text>
-          <a
+          <Pressable
             className="credit-link"
             href="https://github.com/LucasPMM/jigsolver-showcase"
             target="_blank"
             rel="noopener noreferrer"
           >
             GitHub · jigsolver-showcase ↗
-          </a>
+          </Pressable>
         </div>
       </ShouldRender>
     </footer>

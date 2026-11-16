@@ -1,7 +1,7 @@
 WEBVTT
 
-00:00.000 --> 00:05.000
-Actual reconstruction of the synthetic example in a mobile viewport.
+00:00.000 --> 00:04.300
+Actual navigation: scanning and border-finding preparation.
 
-00:05.000 --> 00:10.000
-80 pieces. Responsive interface; no active camera.
+00:04.300 --> 00:09.200
+Assembly and lookup modes. No active camera or analysis run.

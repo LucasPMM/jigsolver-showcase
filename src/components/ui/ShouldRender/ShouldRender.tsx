@@ -1,15 +1,11 @@
 import type { ComponentChildren } from 'preact'
-
-export type ShouldRenderProps = {
+import type { PropsWithChildren } from 'preact/compat'
+export type ShouldRenderProps = PropsWithChildren<{
   if: boolean
-  children: ComponentChildren
-}
-
-const ShouldRender = ({ if: condition, children }: ShouldRenderProps) => {
-  if (!condition) {
-    return null
-  }
-  return <>{children}</>
-}
-
-export { ShouldRender }
+  fallback?: ComponentChildren
+}>
+export const ShouldRender = ({
+  if: condition,
+  children,
+  fallback = null
+}: ShouldRenderProps) => (condition ? children : fallback)

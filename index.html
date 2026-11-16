@@ -1,33 +1,28 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#f6f5f4" />
     <meta
       name="description"
-      content="Conheça o JigSolver: visão computacional para apoiar a montagem de quebra-cabeças físicos. Um protótipo de pesquisa em Ciência da Computação."
+      content="Explore JigSolver: computer vision for assisted physical jigsaw assembly. A Computer Science research prototype."
     />
     <meta
       property="og:title"
-      content="JigSolver — Uma nova perspectiva para cada peça"
+      content="JigSolver — A fresh perspective for every piece"
     />
     <meta
       property="og:description"
-      content="Explore as experiências de captura, análise e reconstrução de quebra-cabeças."
+      content="Explore capture, analysis, and reconstruction experiences for jigsaw puzzles."
     />
     <meta property="og:type" content="website" />
     <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
-    <title>JigSolver — Uma nova perspectiva para cada peça</title>
+    <title>JigSolver — A fresh perspective for every piece</title>
     <script>
       try {
-        const t = localStorage.getItem("jigsolver-theme") || "system";
         document.documentElement.dataset.theme =
-          t === "system"
-            ? matchMedia("(prefers-color-scheme: dark)").matches
-              ? "dark"
-              : "light"
-            : t;
+          localStorage.getItem("jigsolver-theme") === "dark" ? "dark" : "light";
       } catch {}
     </script>
   </head>

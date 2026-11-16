@@ -1,6 +1,6 @@
 import { existsSync, readFileSync, statSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
-import { media } from '../src/data/media'
+import { asset, media } from '../src/data/media'
 
 describe('publication assets', () => {
   it('provides a video, poster and both caption languages for every published demo', () => {
@@ -19,5 +19,16 @@ describe('publication assets', () => {
         /^WEBVTT/
       )
     }
+  })
+})
+
+describe('media cache revision', () => {
+  it('revisions video, poster, and caption URLs while preserving base paths', () => {
+    expect(asset('media/mobile.mp4')).toBe(
+      `${import.meta.env.BASE_URL}media/mobile.mp4?v=20261116-showcase-v5`
+    )
+    expect(asset('/media/mobile.webp')).toContain('mobile.webp?v=')
+    expect(asset('media/mobile.pt.vtt')).toContain('.vtt?v=')
+    expect(asset('favicon.svg')).toBe(`${import.meta.env.BASE_URL}favicon.svg`)
   })
 })

@@ -1,7 +1,10 @@
 WEBVTT
 
-00:00.000 --> 00:09.500
-Reconstrução guiada no desktop: exemplo sintético de 80 peças.
+00:00.000 --> 00:03.000
+Explore o quadro: zoom real em um exemplo sintético de 50 peças.
 
-00:09.500 --> 00:19.500
-O mesmo exemplo em viewport mobile. Gravação real, sem câmera ativa.
+00:03.000 --> 00:07.000
+Rotação e deslocamento pelo próprio aplicativo.
+
+00:07.000 --> 00:10.800
+Demonstração de navegação, não uma nova execução da reconstrução.

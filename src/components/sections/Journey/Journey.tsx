@@ -10,14 +10,16 @@ export const Journey = () => {
   return (
     <>
       <div className="chapter-line section-wrap">
-        <span>01 / 04</span>
-        <span>{c.scroll}</span>
-        <span>↓</span>
+        <Text as="span">01 / 04</Text>
+        <Text as="span">{c.scroll}</Text>
+        <Text as="span">↓</Text>
       </div>
       <section id="journey" className="section-wrap section-pad">
         <div className="section-heading">
-          <span className="eyebrow">{c.journeyEyebrow}</span>
-          <h2>{c.journeyTitle}</h2>
+          <Text as="span" className="eyebrow">
+            {c.journeyEyebrow}
+          </Text>
+          <Text as="h2">{c.journeyTitle}</Text>
           <Text>{c.journeyIntro}</Text>
         </div>
         <div className="journey-grid">
@@ -32,8 +34,10 @@ export const Journey = () => {
                   />
                 </div>
               </div>
-              <span className="micro-label">{s.tag}</span>
-              <h3>{s.title}</h3>
+              <Text as="span" className="micro-label">
+                {s.tag}
+              </Text>
+              <Text as="h3">{s.title}</Text>
               <Text>{s.text}</Text>
             </article>
           ))}

@@ -4,6 +4,7 @@ import { PuzzleArt } from '../../illustrations/PuzzleArt'
 import { InlineVideo } from '../../media/InlineVideo'
 import { Icon } from '../../ui/Icon'
 import { Pressable } from '../../ui/Pressable'
+import { ShouldRender } from '../../ui/ShouldRender'
 import { Text } from '../../ui/Text'
 
 export const Experience = () => {
@@ -13,8 +14,10 @@ export const Experience = () => {
     <section id="experience" className="experience-section">
       <div className="section-wrap section-pad">
         <div className="section-heading">
-          <span className="eyebrow">{c.experienceEyebrow}</span>
-          <h2>{c.experienceTitle}</h2>
+          <Text as="span" className="eyebrow">
+            {c.experienceEyebrow}
+          </Text>
+          <Text as="h2">{c.experienceTitle}</Text>
           <Text>{c.experienceIntro}</Text>
         </div>
         <fieldset className="device-tabs" aria-label={c.experienceTitle}>
@@ -44,26 +47,26 @@ export const Experience = () => {
               aria-label={c.fullscreen}
             >
               <div className="device-top">
-                <span />
-                <span />
-                <span />
+                <Text as="span" />
+                <Text as="span" />
+                <Text as="span" />
               </div>
-              {selected.ready ? (
+              <ShouldRender if={selected.ready} fallback={<PuzzleArt />}>
                 <InlineVideo
                   key={device}
                   index={device === 'desktop' ? 1 : 2}
                   label={device === 'desktop' ? c.desktopTitle : c.mobileTitle}
                 />
-              ) : (
-                <PuzzleArt />
-              )}
+              </ShouldRender>
             </Pressable>
           </div>
           <div className="experience-copy">
-            <span className="micro-label">
+            <Text as="span" className="micro-label">
               {device === 'desktop' ? 'DESKTOP' : 'MOBILE'}
-            </span>
-            <h3>{device === 'desktop' ? c.desktopTitle : c.mobileTitle}</h3>
+            </Text>
+            <Text as="h3">
+              {device === 'desktop' ? c.desktopTitle : c.mobileTitle}
+            </Text>
             <Text>{device === 'desktop' ? c.desktopText : c.mobileText}</Text>
             <ul>
               {(device === 'desktop'
@@ -71,9 +74,9 @@ export const Experience = () => {
                 : c.mobileFeatures
               ).map((f) => (
                 <li key={f}>
-                  <span>
+                  <Text as="span">
                     <Icon name="check" size={16} />
-                  </span>
+                  </Text>
                   {f}
                 </li>
               ))}

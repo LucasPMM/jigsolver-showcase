@@ -1,7 +1,10 @@
 WEBVTT
 
-00:00.000 --> 00:09.500
-Guided desktop reconstruction: an 80-piece synthetic example.
+00:00.000 --> 00:03.000
+Explore the workspace: actual zoom on a 50-piece synthetic example.
 
-00:09.500 --> 00:19.500
-The same example in a mobile viewport. Actual recording; no active camera.
+00:03.000 --> 00:07.000
+Rotation and panning through the actual application.
+
+00:07.000 --> 00:10.800
+Workspace navigation, not a new reconstruction run.

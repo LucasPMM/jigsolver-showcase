@@ -1,16 +1,33 @@
 import { useShowcase } from '../../../contexts/ShowcaseContext'
 import { asset, media } from '../../../data/media'
-import { PuzzleArt } from '../../illustrations/PuzzleArt'
 import { Button } from '../../ui/Button'
 import { Icon } from '../../ui/Icon'
 import { Pressable } from '../../ui/Pressable'
 import { ShouldRender } from '../../ui/ShouldRender'
 import { Text } from '../../ui/Text'
+import { Video } from '../../ui/Video'
 
 export const MediaDialog = () => {
-  const { lang, active, setActive, error, setError, dialog, video, c, close } =
-    useShowcase()
-
+  const {
+    lang,
+    fallbackOpen,
+    mediaIndex,
+    hasMetadata,
+    setHasMetadata,
+    playback,
+    setPlayback,
+    error,
+    setError,
+    dialog,
+    video,
+    c,
+    close,
+    open,
+    restart,
+    playCurrent,
+    expand
+  } = useShowcase()
+  const item = media[mediaIndex]
   return (
     <dialog
       ref={dialog}
@@ -33,87 +50,116 @@ export const MediaDialog = () => {
       }}
     >
       <div className="dialog-content">
-        {active !== null && (
-          <>
-            <div className="dialog-header">
-              <div>
-                <span className="micro-label">{c.demos[active].category}</span>
-                <h3 id="demo-dialog-title">{c.demos[active].title}</h3>
-              </div>
-              <Pressable
-                type="button"
-                className="icon-button"
-                onClick={close}
-                aria-label={c.close}
-              >
-                <Icon name="close" />
-              </Pressable>
-            </div>
-            {media[active].ready ? (
-              <>
-                <video
-                  key={media[active].id}
-                  ref={video}
-                  autoPlay
-                  loop
-                  controls
-                  playsInline
-                  preload="metadata"
-                  poster={asset(media[active].poster)}
-                  onError={() => setError(true)}
-                >
-                  <source src={asset(media[active].src)} type="video/mp4" />
-                  <track
-                    kind="captions"
-                    src={asset(
-                      `media/${media[active].id}.${lang === 'en' ? 'en' : 'pt'}.vtt`
-                    )}
-                    srcLang={lang}
-                    label={lang === 'en' ? 'English' : 'Português'}
-                    default
-                  />
-                </video>
-                <ShouldRender if={error}>
-                  <Text role="alert">{c.mediaUnavailable}</Text>
-                </ShouldRender>
-              </>
-            ) : (
-              <div className="pending">
-                <PuzzleArt />
-                <Text>{c.pendingMedia}</Text>
-              </div>
-            )}
-            <Text className="dialog-caption">{c.demos[active].desc}</Text>
-            <div className="dialog-controls">
-              <Button
-                variant="secondary"
-                onClick={() => setActive((active + 2) % 3)}
-                aria-label={c.previous}
-              >
-                ←
-              </Button>
-              <Button
-                variant="secondary"
-                disabled={!media[active].ready}
-                onClick={() => {
-                  if (video.current) {
-                    video.current.currentTime = 0
-                    void video.current.play().catch(() => {})
-                  }
-                }}
-              >
-                {c.replay}
-              </Button>
-              <Button
-                variant="secondary"
-                onClick={() => setActive((active + 1) % 3)}
-                aria-label={c.next}
-              >
-                →
-              </Button>
-            </div>
-          </>
-        )}
+        <div className="dialog-header">
+          <div>
+            <Text as="span" className="micro-label">
+              {c.demos[mediaIndex].category}
+            </Text>
+            <Text as="h3" id="demo-dialog-title">
+              {c.demos[mediaIndex].title}
+            </Text>
+          </div>
+          <Pressable
+            className="icon-button"
+            onClick={close}
+            aria-label={c.close}
+          >
+            <Icon name="close" />
+          </Pressable>
+        </div>
+        <Video
+          ref={video}
+          src={asset(item.src)}
+          autoPlay={fallbackOpen}
+          muted
+          loop
+          controls
+          playsInline
+          preload="auto"
+          poster={asset(item.poster)}
+          onLoadStart={() => {
+            setHasMetadata(false)
+            setPlayback('loading')
+          }}
+          onLoadedMetadata={() => setHasMetadata(true)}
+          onPlaying={() => {
+            setPlayback('playing')
+            setError(false)
+          }}
+          onPause={() => {
+            if (fallbackOpen) {
+              setPlayback('paused')
+            }
+          }}
+          onWaiting={() => {
+            if (fallbackOpen) {
+              setPlayback('loading')
+            }
+          }}
+          onError={() => {
+            setError(true)
+            setPlayback('error')
+          }}
+        >
+          <track
+            key={`${item.id}-${lang}`}
+            kind="captions"
+            src={asset(`media/${item.id}.${lang === 'en' ? 'en' : 'pt'}.vtt`)}
+            srcLang={lang}
+            label={lang === 'en' ? 'English' : 'Português'}
+            default
+          />
+        </Video>
+        <ShouldRender if={error}>
+          <Text role="alert">{c.mediaUnavailable}</Text>
+        </ShouldRender>
+        <ShouldRender
+          if={!error && (playback === 'blocked' || playback === 'loading')}
+        >
+          <Text className="playback-status" role="status">
+            {playback === 'blocked' ? c.playbackBlocked : c.loadingVideo}
+          </Text>
+        </ShouldRender>
+        <Text className="dialog-caption">{c.demos[mediaIndex].desc}</Text>
+        <div className="dialog-controls">
+          <Button
+            variant="secondary"
+            onClick={() =>
+              open((mediaIndex + media.length - 1) % media.length, false)
+            }
+            aria-label={c.previous}
+          >
+            ←
+          </Button>
+          <Button variant="secondary" onClick={playCurrent}>
+            {c.play}
+          </Button>
+          <Button variant="secondary" onClick={restart}>
+            {c.replay}
+          </Button>
+          <Button variant="secondary" onClick={expand} disabled={!hasMetadata}>
+            {c.fullscreen}
+          </Button>
+          <Button
+            variant="secondary"
+            onClick={() => open((mediaIndex + 1) % media.length, false)}
+            aria-label={c.next}
+          >
+            →
+          </Button>
+        </div>
+        <ShouldRender
+          if={error || playback === 'blocked' || playback === 'loading'}
+        >
+          <Pressable
+            className="direct-video-link"
+            href={asset(item.src)}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {c.openVideoFile}
+          </Pressable>
+        </ShouldRender>
       </div>
     </dialog>
   )

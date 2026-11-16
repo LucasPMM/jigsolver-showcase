@@ -1,5 +1,5 @@
 export const pt = {
-  nav: ['Como funciona', 'Experiências', 'Demonstrações', 'Pesquisa'],
+  nav: ['Como funciona', 'Experiências', 'Demonstrações', 'Fotografias'],
   skip: 'Pular para o conteúdo',
   menu: 'Abrir navegação',
   closeMenu: 'Fechar navegação',
@@ -10,6 +10,15 @@ export const pt = {
     'Da fotografia à reconstrução digital. Explore como o JigSolver combina visão computacional e inteligência artificial para apoiar a montagem de quebra-cabeças físicos.',
   watch: 'Ver em ação',
   fullscreen: 'Abrir vídeo em tela cheia',
+  tapToPlay: 'Toque para assistir',
+  loadingVideo:
+    'Carregando vídeo… Se não iniciar, toque em Reproduzir demonstração.',
+  playbackBlocked:
+    'A reprodução automática foi bloqueada pelo navegador. Toque em Reproduzir demonstração.',
+  openVideoFile: 'Abrir vídeo diretamente',
+  viewImage: 'Ver imagem em tela cheia',
+  closeImage: 'Fechar imagem',
+  imageUnavailable: 'Não foi possível carregar esta imagem.',
   explore: 'Conhecer o projeto',
   researchBadge: 'Protótipo de pesquisa',
   heroCaption: 'Uma experiência visual, do primeiro recorte à montagem.',
@@ -49,16 +58,16 @@ export const pt = {
     'Acompanhe a reconstrução visual',
     'Observe as peças em tela cheia'
   ],
-  mobileTitle: 'Acompanhe a reconstrução no celular.',
+  mobileTitle: 'Conheça o assistente no celular.',
   mobileText:
-    'Veja a reconstrução sintética de 80 peças em uma tela móvel. A gravação contínua mostra o movimento real das peças no workspace responsivo.',
+    'Explore as quatro abas do assistente: captura, bordas, montagem e busca de peça. A demonstração mostra a navegação pelas telas preparatórias, sem executar análise.',
   mobileFeatures: [
-    'Acompanhe a montagem animada',
-    'Observe as peças no workspace móvel',
-    'Amplie a demonstração em tela cheia'
+    'Navegue pelas etapas do assistente',
+    'Veja as opções de captura e bordas',
+    'Conheça as telas de montagem e busca'
   ],
   mobileNote:
-    'Gravação em viewport móvel, não um teste em aparelho físico. O exemplo é sintético e guiado por referência; não demonstra captura ativa de câmera.',
+    'Gravação em viewport móvel, não um teste em aparelho físico. Não há captura de câmera, segmentação ou busca executadas no vídeo.',
   desktopNote:
     'Demonstração do protótipo. A qualidade da reconstrução depende do caso e das informações disponíveis.',
   demoEyebrow: 'MENOS EXPLICAÇÃO. MAIS DESCOBERTA.',
@@ -67,8 +76,8 @@ export const pt = {
     'Demonstrações curtas em loop. Toque ou use o teclado para abrir em tela cheia.',
   demos: [
     {
-      title: 'Uma montagem, duas telas',
-      desc: 'Reconstrução sintética de 80 peças nas experiências desktop e mobile.',
+      title: 'Explore o workspace',
+      desc: 'Zoom, rotação e enquadramento de uma Mona Lisa sintética de 50 peças já montadas.',
       category: 'VISÃO GERAL'
     },
     {
@@ -77,9 +86,14 @@ export const pt = {
       category: 'DESKTOP'
     },
     {
-      title: 'Reconstrução em tela mobile',
-      desc: 'Vídeo contínuo da reconstrução sintética no workspace móvel. Sem captura ativa de câmera.',
+      title: 'Navegue pelo assistente',
+      desc: 'Navegação real pelas quatro abas preparatórias. Sem câmera ou processamento executado.',
       category: 'MOBILE'
+    },
+    {
+      title: 'Montagem com peças fotografadas',
+      desc: 'Animação da proposta calculada para 30 peças reais de animais marinhos. O resultado ainda depende de conferência física; o vídeo não mostra o tempo de processamento.',
+      category: 'QUEBRA-CABEÇA FOTOGRAFADO'
     }
   ],
   play: 'Reproduzir demonstração',
@@ -91,48 +105,50 @@ export const pt = {
   pendingMedia: 'Demonstração em preparação',
   mediaUnavailable:
     'Não foi possível carregar este vídeo. Tente novamente ou veja outra demonstração.',
-  evidenceEyebrow: 'PESQUISA EM MOVIMENTO',
-  evidenceTitle: 'Resultados, com contexto.',
-  evidenceIntro:
-    'Uma montagem bem-sucedida é parte da história. Entender quando e por que um método falha também faz parte da pesquisa.',
-  evidence: [
+  photosEyebrow: 'PEÇAS REAIS, DESAFIOS REAIS',
+  photosTitle: 'Da fotografia ao recorte.',
+  photosIntro:
+    'Fotografias reais de peças, com comparação qualitativa de segmentação clássica e MobileSAM. O fundo, a iluminação e as texturas também fazem parte do desafio.',
+  photoColumns: ['Fotografia original', 'Método clássico', 'MobileSAM'],
+  photoOriginal: 'Ver painel original completo',
+  photosNote:
+    'Exemplos selecionados de uma execução histórica. Os três quadros de cada linha correspondem à mesma fotografia. Não há gabarito independente nem avaliação de acurácia neste conjunto; os exemplos não demonstram superioridade geral de um método.',
+  photoExamples: [
     {
-      value: '50–100',
-      label: 'peças nos controles sintéticos',
-      text: 'Quatro configurações conhecidas usadas no estudo de reconstrução pelas bordas.'
+      title: 'Peça azul sobre granito',
+      alts: [
+        'Fotografia de peça azul sobre granito.',
+        'Segmentação clássica da peça azul, ainda incluindo uma região extensa de granito.',
+        'Recorte MobileSAM da peça azul sobre fundo quadriculado.'
+      ]
     },
     {
-      value: '300 / 300',
-      label: 'poses corretas após reparo',
-      text: 'Resultado agregado dos controles, obtido tanto pelo método espacial quanto pelo método por moldura.'
-    },
-    {
-      value: 'Em estudo',
-      label: 'generalização para novas capturas',
-      text: 'Resultados sintéticos não demonstram o mesmo desempenho em fotografias reais ou conjuntos independentes.'
+      title: 'Peça de elefante sobre madeira',
+      alts: [
+        'Fotografia de peça com parte de um elefante sobre mesa de madeira.',
+        'Segmentação clássica da peça de elefante, incluindo parte da mesa.',
+        'Recorte MobileSAM da peça de elefante sobre fundo quadriculado.'
+      ]
     }
   ],
-  evidenceNote:
-    'Uma pose correta combina posição e orientação. Esses resultados descrevem experimentos específicos, não uma garantia de montagem para qualquer quebra-cabeça.',
   aboutEyebrow: 'SOBRE O PROJETO',
   aboutTitle: 'Tecnologia para ajudar a enxergar o próximo passo.',
   aboutText:
-    'O JigSolver é um projeto de Ciência da Computação que investiga a montagem assistida de quebra-cabeças físicos. Esta página apresenta experiências e resultados do protótipo, sem executar os métodos de processamento no navegador.',
+    'O JigSolver é um projeto de Ciência da Computação que investiga a montagem assistida de quebra-cabeças físicos. Esta página apresenta experiências do protótipo, sem executar os métodos de processamento no navegador.',
   author: 'Desenvolvido por Lucas Paulo Martins Mariz',
   university: 'Projeto Orientado em Computação I · UFMG',
   footer: 'Feito de curiosidade. Construído peça por peça.',
   credits: 'Sobre as demonstrações',
   creditText:
-    'As mídias mostram gravações contínuas da reconstrução sintética de A Noite Estrelada (Vincent van Gogh, 1889, domínio público) em viewports desktop e mobile, sem câmera ativa. Não há garantia de reconstrução universal. A origem e as condições estão documentadas no manifesto de mídia do repositório.',
+    'As mídias mostram a exploração de uma Mona Lisa sintética já montada, a reconstrução sintética de A Noite Estrelada e a navegação pelas telas preparatórias do assistente. As pinturas de Leonardo da Vinci e Vincent van Gogh estão em domínio público. Não há câmera ativa nem garantia de reconstrução universal. A origem e as condições estão documentadas no manifesto de mídia.',
   light: 'Claro',
   dark: 'Escuro',
-  system: 'Sistema',
   theme: 'Tema',
   language: 'Idioma',
   backTop: 'Voltar ao início'
 }
 export const en = {
-  nav: ['How it works', 'Experiences', 'Demos', 'Research'],
+  nav: ['How it works', 'Experiences', 'Demos', 'Photographs'],
   skip: 'Skip to content',
   menu: 'Open navigation',
   closeMenu: 'Close navigation',
@@ -143,6 +159,15 @@ export const en = {
     'From a photograph to a digital reconstruction. Explore how JigSolver combines computer vision and artificial intelligence to support physical jigsaw puzzle assembly.',
   watch: 'See it in action',
   fullscreen: 'Open video in fullscreen',
+  tapToPlay: 'Tap to watch',
+  loadingVideo:
+    'Loading video… If playback does not start, tap Play demonstration.',
+  playbackBlocked:
+    'Your browser blocked automatic playback. Tap Play demonstration.',
+  openVideoFile: 'Open video directly',
+  viewImage: 'View image fullscreen',
+  closeImage: 'Close image',
+  imageUnavailable: 'The image could not be loaded.',
   explore: 'Explore the project',
   researchBadge: 'Research prototype',
   heroCaption: 'A visual experience, from the first cutout to assembly.',
@@ -182,16 +207,16 @@ export const en = {
     'Follow the visual reconstruction',
     'Inspect pieces in full screen'
   ],
-  mobileTitle: 'Follow reconstruction on mobile.',
+  mobileTitle: 'Meet the assistant on mobile.',
   mobileText:
-    'Watch an 80-piece synthetic reconstruction in a mobile viewport. The continuous recording shows actual piece motion in the responsive workspace.',
+    'Explore the assistant’s four tabs: capture, borders, assembly, and piece search. The demonstration navigates the preparation screens without running an analysis.',
   mobileFeatures: [
-    'Follow the animated assembly',
-    'Inspect pieces in the mobile workspace',
-    'Expand the demonstration to fullscreen'
+    'Navigate the assistant’s stages',
+    'See capture and border options',
+    'Explore assembly and search screens'
   ],
   mobileNote:
-    'Recorded in a mobile viewport, not tested on a physical device. This is a synthetic, reference-guided example, not an active camera demonstration.',
+    'Recorded in a mobile viewport, not tested on a physical device. No camera capture, segmentation, or search is performed in this video.',
   desktopNote:
     'Prototype demonstration. Reconstruction quality depends on the case and the information available.',
   demoEyebrow: 'LESS EXPLAINING. MORE EXPLORING.',
@@ -200,8 +225,8 @@ export const en = {
     'Short, looping demonstrations. Tap or use your keyboard to open fullscreen.',
   demos: [
     {
-      title: 'One assembly, two screens',
-      desc: 'An 80-piece synthetic reconstruction in desktop and mobile experiences.',
+      title: 'Explore the workspace',
+      desc: 'Zoom, rotation, and framing of an already assembled, synthetic 50-piece Mona Lisa.',
       category: 'OVERVIEW'
     },
     {
@@ -210,9 +235,14 @@ export const en = {
       category: 'DESKTOP'
     },
     {
-      title: 'Mobile reconstruction',
-      desc: 'Continuous recording of a synthetic reconstruction in the mobile workspace. No active camera capture.',
+      title: 'Navigate the assistant',
+      desc: 'Actual navigation through the four preparation tabs. No active camera or processing.',
       category: 'MOBILE'
+    },
+    {
+      title: 'Assembly from photographed pieces',
+      desc: 'Animation of the computed proposal for 30 real sea-life puzzle pieces. The result still needs physical verification; the clip does not show processing time.',
+      category: 'PHOTOGRAPHED PUZZLE'
     }
   ],
   play: 'Play demonstration',
@@ -224,42 +254,44 @@ export const en = {
   pendingMedia: 'Demonstration in preparation',
   mediaUnavailable:
     'This video could not be loaded. Try again or explore another demonstration.',
-  evidenceEyebrow: 'RESEARCH IN PROGRESS',
-  evidenceTitle: 'Results, in context.',
-  evidenceIntro:
-    'A successful assembly is only part of the story. Understanding when and why a method fails is part of the research too.',
-  evidence: [
+  photosEyebrow: 'REAL PIECES, REAL CHALLENGES',
+  photosTitle: 'From photograph to cutout.',
+  photosIntro:
+    'Real photographs of puzzle pieces, with a qualitative comparison of classical segmentation and MobileSAM. Backgrounds, lighting, and textures are part of the challenge.',
+  photoColumns: ['Original photograph', 'Classical method', 'MobileSAM'],
+  photoOriginal: 'View the complete original panel',
+  photosNote:
+    'Selected examples from a historical run. All three views in each row come from the same photograph. There is no independent ground truth or accuracy evaluation for this set; these examples do not establish general superiority of either method.',
+  photoExamples: [
     {
-      value: '50–100',
-      label: 'pieces in synthetic controls',
-      text: 'Four known configurations used in the border-first reconstruction study.'
+      title: 'Blue piece on granite',
+      alts: [
+        'Photograph of a blue piece on granite.',
+        'Classical segmentation of the blue piece, retaining a large region of granite.',
+        'MobileSAM cutout of the blue piece on a checkerboard background.'
+      ]
     },
     {
-      value: '300 / 300',
-      label: 'correct poses after repair',
-      text: 'Aggregate control result achieved by both the spatial and frame-based methods.'
-    },
-    {
-      value: 'In progress',
-      label: 'generalization to new captures',
-      text: 'Synthetic results do not establish the same performance on real photographs or independent datasets.'
+      title: 'Elephant piece on wood',
+      alts: [
+        'Photograph of an elephant piece on a wooden table.',
+        'Classical segmentation of the elephant piece, retaining part of the table.',
+        'MobileSAM cutout of the elephant piece on a checkerboard background.'
+      ]
     }
   ],
-  evidenceNote:
-    'A correct pose combines position and orientation. These results describe specific experiments, not a guarantee of assembly for every puzzle.',
   aboutEyebrow: 'ABOUT THE PROJECT',
   aboutTitle: 'Technology to help reveal the next step.',
   aboutText:
-    'JigSolver is a Computer Science project investigating assisted assembly of physical jigsaw puzzles. This page presents prototype experiences and results without running the image-processing methods in your browser.',
+    'JigSolver is a Computer Science project investigating assisted assembly of physical jigsaw puzzles. This page presents prototype experiences without running the image-processing methods in your browser.',
   author: 'Developed by Lucas Paulo Martins Mariz',
   university: 'Supervised Computer Science Project I · UFMG',
   footer: 'Made of curiosity. Built piece by piece.',
   credits: 'About the demonstrations',
   creditText:
-    'The media shows continuous recordings of a synthetic reconstruction of The Starry Night (Vincent van Gogh, 1889, public domain) in desktop and mobile viewports, without an active camera. Universal reconstruction is not guaranteed. Origins and conditions are documented in the repository media manifest.',
+    'The media shows exploration of an assembled synthetic Mona Lisa, a synthetic reconstruction of The Starry Night, and navigation through the assistant’s preparation screens. The paintings by Leonardo da Vinci and Vincent van Gogh are in the public domain. No active camera or universal reconstruction is represented. Origins and conditions are documented in the media manifest.',
   light: 'Light',
   dark: 'Dark',
-  system: 'System',
   theme: 'Theme',
   language: 'Language',
   backTop: 'Back to top'

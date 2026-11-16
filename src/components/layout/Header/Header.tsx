@@ -1,6 +1,7 @@
 import { useShowcase } from '../../../contexts/ShowcaseContext'
 import { Icon } from '../../ui/Icon'
 import { Pressable } from '../../ui/Pressable'
+import { Text } from '../../ui/Text'
 
 export const Header = () => {
   const { lang, theme, setTheme, menu, setMenu, c, anchors, language } =
@@ -9,24 +10,27 @@ export const Header = () => {
   return (
     <header className="header">
       <div className="nav-wrap">
-        <a className="brand" href="#top" aria-label="JigSolver">
-          <span className="brand-mark">
+        <Pressable className="brand" href="#top" aria-label="JigSolver">
+          <Text as="span" className="brand-mark">
             <Icon name="puzzle" size={23} />
-          </span>
-          JigSolver<span className="brand-dot">.</span>
-        </a>
+          </Text>
+          JigSolver
+          <Text as="span" className="brand-dot">
+            .
+          </Text>
+        </Pressable>
         <nav
           className={menu ? 'navigation open' : 'navigation'}
           aria-label={lang === 'en' ? 'Main navigation' : 'Navegação principal'}
         >
           {c.nav.map((name, i) => (
-            <a
+            <Pressable
               href={`#${anchors[i]}`}
               onClick={() => setMenu(false)}
               key={name}
             >
               {name}
-            </a>
+            </Pressable>
           ))}
         </nav>
         <div className="preferences">
@@ -38,7 +42,9 @@ export const Header = () => {
               onClick={() => language('pt-BR')}
               aria-pressed={lang === 'pt-BR'}
             >
-              <span aria-hidden="true">🇧🇷</span>
+              <Text as="span" aria-hidden="true">
+                🇧🇷
+              </Text>
             </Pressable>
 
             <Pressable
@@ -48,33 +54,19 @@ export const Header = () => {
               onClick={() => language('en')}
               aria-pressed={lang === 'en'}
             >
-              <span aria-hidden="true">🇺🇸</span>
+              <Text as="span" aria-hidden="true">
+                🇺🇸
+              </Text>
             </Pressable>
           </fieldset>
           <Pressable
             type="button"
             className="icon-button theme-toggle"
-            title={`${c.theme}: ${theme === 'system' ? c.system : theme === 'dark' ? c.dark : c.light}`}
-            aria-label={`${c.theme}: ${theme === 'system' ? c.system : theme === 'dark' ? c.dark : c.light}. ${lang === 'en' ? 'Change theme' : 'Alterar tema'}`}
-            onClick={() =>
-              setTheme(
-                theme === 'system'
-                  ? 'light'
-                  : theme === 'light'
-                    ? 'dark'
-                    : 'system'
-              )
-            }
+            title={`${c.theme}: ${theme === 'dark' ? c.dark : c.light}`}
+            aria-label={`${c.theme}: ${theme === 'dark' ? c.dark : c.light}. ${lang === 'en' ? 'Change theme' : 'Alterar tema'}`}
+            onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
           >
-            <Icon
-              name={
-                theme === 'system'
-                  ? 'desktop'
-                  : theme === 'dark'
-                    ? 'moon'
-                    : 'sun'
-              }
-            />
+            <Icon name={theme === 'dark' ? 'moon' : 'sun'} />
           </Pressable>
           <Pressable
             type="button"

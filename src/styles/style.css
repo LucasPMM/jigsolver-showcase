@@ -299,7 +299,8 @@ h1 em {
   border-radius: 12px;
   box-shadow: var(--shadow);
   position: relative;
-  transform: rotate(-1.2deg);
+  /* Keep the video surface axis-aligned to avoid stepped edges on iPad compositing. */
+  isolation: isolate;
 }
 .visual-label {
   height: 40px;
@@ -606,7 +607,7 @@ h3 {
 }
 .demo-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 22px;
 }
 .demo-card {
@@ -1528,4 +1529,188 @@ fieldset.device-tabs {
   height: 100%;
   object-fit: contain;
   background: #000;
+}
+
+.inline-video-hint {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: #111d;
+  color: #fff;
+  font-size: 12px;
+  text-align: center;
+  pointer-events: none;
+}
+.playback-status {
+  margin: 8px 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+.dialog-controls {
+  flex-wrap: wrap;
+}
+.direct-video-link {
+  font-size: 12px;
+  text-decoration: underline;
+  align-self: center;
+  padding: 8px;
+}
+
+.author-avatar {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.author-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+video.inline-video:fullscreen {
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  object-fit: contain;
+  background: #000;
+}
+
+.photographed-section {
+  border-top: 1px solid var(--line);
+}
+.photo-example {
+  margin: 40px 0;
+}
+.photo-example h3 {
+  font-size: 20px;
+  margin: 0 0 20px;
+}
+.photo-comparison {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+.photo-comparison figure {
+  margin: 0;
+  min-width: 0;
+}
+.photo-crop {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  background: var(--soft);
+  border: 1px solid var(--line);
+}
+.photo-crop .image-trigger > img {
+  position: absolute;
+  max-width: none;
+  height: auto;
+}
+.photo-comparison figcaption {
+  font-size: 12px;
+  font-weight: 600;
+  margin: 12px 0;
+}
+.photo-original {
+  display: inline-block;
+  font-size: 12px;
+  text-decoration: underline;
+  margin-top: 8px;
+}
+.photo-note {
+  color: var(--muted);
+  font-size: 12px;
+  max-width: 850px;
+}
+@media (max-width: 600px) {
+  .photo-comparison {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .photo-crop {
+    max-width: 360px;
+    margin: auto;
+  }
+  .photo-comparison figcaption {
+    text-align: center;
+  }
+}
+
+.image-trigger {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  position: relative;
+  cursor: zoom-in;
+}
+.image-trigger:focus-visible {
+  outline-offset: -4px;
+}
+.image-viewer {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  color: var(--text);
+  background: var(--surface);
+}
+.image-viewer::backdrop {
+  background: #000b;
+}
+.image-viewer-surface {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  gap: 16px;
+  background: var(--surface);
+  color: var(--text);
+}
+.image-viewer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.image-viewer-header h2 {
+  font-size: 18px;
+  line-height: 1.4;
+  letter-spacing: 0;
+  margin: 0;
+}
+.image-viewer-header .icon-button {
+  flex-shrink: 0;
+  font-size: 24px;
+}
+.image-viewer-surface > img {
+  display: block;
+  position: static;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.image-viewer-surface:fullscreen {
+  width: 100vw;
+  height: 100dvh;
+}
+@media (max-width: 600px) {
+  .image-viewer-surface {
+    padding: 12px;
+  }
+  .image-viewer-header h2 {
+    font-size: 14px;
+  }
 }

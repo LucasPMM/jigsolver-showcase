@@ -4,6 +4,7 @@ import { PuzzleArt } from '../../illustrations/PuzzleArt'
 import { InlineVideo } from '../../media/InlineVideo'
 import { Icon } from '../../ui/Icon'
 import { Pressable } from '../../ui/Pressable'
+import { ShouldRender } from '../../ui/ShouldRender'
 import { Text } from '../../ui/Text'
 
 export const Demos = () => {
@@ -13,8 +14,10 @@ export const Demos = () => {
     <section id="demos" className="section-wrap section-pad">
       <div className="section-heading split-heading">
         <div>
-          <span className="eyebrow">{c.demoEyebrow}</span>
-          <h2>{c.demoTitle}</h2>
+          <Text as="span" className="eyebrow">
+            {c.demoEyebrow}
+          </Text>
+          <Text as="h2">{c.demoTitle}</Text>
         </div>
         <Text>{c.demoIntro}</Text>
       </div>
@@ -28,18 +31,21 @@ export const Demos = () => {
             onClick={() => open(i)}
           >
             <div className="demo-image">
-              {media[i].ready ? (
+              <ShouldRender
+                if={media[i].ready}
+                fallback={<PuzzleArt stage={i} />}
+              >
                 <InlineVideo index={i} label={d.title} />
-              ) : (
-                <PuzzleArt stage={i} />
-              )}
+              </ShouldRender>
             </div>
             <div className="demo-text">
-              <span className="micro-label">{d.category}</span>
-              <h3>
+              <Text as="span" className="micro-label">
+                {d.category}
+              </Text>
+              <Text as="h3">
                 {d.title}
                 <Icon name="arrow" />
-              </h3>
+              </Text>
               <Text>{d.desc}</Text>
             </div>
           </Pressable>

@@ -1,17 +1,21 @@
 export type Language = 'pt-BR' | 'en'
-export type Theme = 'light' | 'dark' | 'system'
+export type Theme = 'light' | 'dark'
 export const resolveLanguage = (
   query: string | null,
-  saved: string | null,
-  browser: string
+  saved: string | null
 ): Language => {
-  return (query || saved || browser).toLowerCase().startsWith('en')
-    ? 'en'
-    : 'pt-BR'
+  for (const value of [query, saved]) {
+    if (value?.toLowerCase().startsWith('pt')) {
+      return 'pt-BR'
+    }
+    if (value?.toLowerCase().startsWith('en')) {
+      return 'en'
+    }
+  }
+  return 'en'
 }
-export const resolveTheme = (value: string | null): Theme => {
-  return value === 'light' || value === 'dark' ? value : 'system'
-}
+export const resolveTheme = (value: string | null): Theme =>
+  value === 'dark' ? 'dark' : 'light'
 export const readPreference = (key: string) => {
   try {
     return localStorage.getItem(key)

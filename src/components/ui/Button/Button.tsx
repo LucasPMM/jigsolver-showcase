@@ -1,5 +1,6 @@
 import type { PressableProps } from '../Pressable'
 import { Pressable } from '../Pressable'
+import { ShouldRender } from '../ShouldRender'
 export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger'
 export type ButtonProps = PressableProps & {
   variant?: ButtonVariant
@@ -22,6 +23,8 @@ export const Button = ({
     disabled={disabled || loading}
     aria-busy={loading || undefined}
   >
-    {loading ? loadingLabel : children}
+    <ShouldRender if={loading} fallback={children}>
+      {loadingLabel}
+    </ShouldRender>
   </Pressable>
 )
