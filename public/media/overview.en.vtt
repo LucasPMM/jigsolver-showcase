@@ -1,10 +1,7 @@
 WEBVTT
 
-00:00.000 --> 00:08.400
-Guided reconstruction: an 80-piece synthetic demonstration.
+00:00.000 --> 00:09.500
+Guided desktop reconstruction: an 80-piece synthetic example.
 
-00:08.400 --> 00:12.900
-Progress tracking in the JigSolver mobile interface.
-
-00:12.900 --> 00:17.400
-Mobile assistant: start screen, without camera capture.
+00:09.500 --> 00:19.500
+The same example in a mobile viewport. Actual recording; no active camera.

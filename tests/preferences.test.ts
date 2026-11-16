@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { resolveLanguage, resolveTheme } from '../src/preferences'
+import { resolveLanguage, resolveTheme } from '../src/lib/preferences'
 
 describe('preferences', () => {
   it('prefers explicit URL language', () => {

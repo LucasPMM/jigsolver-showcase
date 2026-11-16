@@ -1,77 +1,86 @@
 # JigSolver Showcase
 
-Uma apresentação interativa do **JigSolver**, projeto de montagem assistida de quebra-cabeças desenvolvido por Lucas Paulo em Ciência da Computação na UFMG.
+An interactive presentation of **JigSolver**, an experimental assisted jigsaw-assembly project developed by Lucas Paulo as part of his Computer Science studies at UFMG.
 
-A página aproxima o visitante da experiência do sistema: fotografar e caracterizar peças, analisar possibilidades de encaixe e acompanhar uma reconstrução. Foi pensada para complementar o banner acadêmico em uma apresentação com tablet, sem deixar de funcionar no celular ou no computador.
+The page introduces the user-facing experience: capturing and characterizing pieces, exploring compatibility estimates, and following a digital reconstruction. It complements the academic poster during a tablet presentation while remaining comfortable on phones and desktop computers.
 
-## O que você encontra
+## Explore the project
 
-- Uma jornada visual das etapas de captura, análise e montagem assistida.
-- Demonstrações curtas da interface desktop e mobile, reproduzidas automaticamente em loop e sem áudio.
-- Resultados experimentais acompanhados de contexto e limitações, sem prometer resolver qualquer quebra-cabeça.
-- Conteúdo em português e inglês, com troca de idioma e preferência salva no dispositivo.
-- Temas claro, escuro e automático. O botão de tema percorre essas opções e informa o estado atual por descrição acessível.
-- Controles de pausa, navegação por teclado e respeito à preferência de redução de movimento.
+- A visual journey through capture, analysis, and assisted assembly.
+- Short desktop and mobile demonstrations playing silently in a loop as they enter the viewport.
+- Click or keyboard-activate a demonstration to open the video in fullscreen. An accessible, viewport-filling dialog remains available when native fullscreen is unsupported or denied.
+- Experimental results presented with their context and limitations, without claiming universal reconstruction.
+- Portuguese and English content, remembered language preferences, and light, dark, or system themes.
+- Keyboard navigation, a global animation-pause control, and reduced-motion support.
 
-As gravações mostram o estágio experimental do projeto. A demonstração desktop é um replay de uma reconstrução sintética de 80 peças guiada por uma imagem de referência. A demonstração mobile é uma montagem editada de telas reais, não uma captura contínua nem uma demonstração de câmera ativa. Origem, edição e créditos estão em [public/media/README.md](public/media/README.md).
+The recordings illustrate an experimental stage of the project. They are not a general accuracy benchmark or a promise of successful reconstruction on arbitrary physical puzzles. See [media provenance](public/media/README.md) for capture conditions, editing details, and credits.
 
-## Escopo
+## Scope
 
-Este repositório é a vitrine pública e estática do projeto, não a aplicação de reconstrução. Não depende do backend privado, de banco de dados, de credenciais ou de autenticação. Não recebe imagens do visitante nem processa quebra-cabeças. Não inclui analytics ou rastreamento de terceiros.
+This repository is the public, static showcase, not the private reconstruction application. It does not require a backend, database, credentials, or authentication. It does not accept visitor uploads or process puzzles. There are no analytics or third-party trackers.
 
-## Desenvolvimento local
+## Local development
 
-Requisitos: **Node.js 24** e **pnpm 10.33.4**.
+Requirements: **Node.js 24** and **pnpm 10.33.4**.
 
 ```sh
 pnpm install --frozen-lockfile
 pnpm start       # http://localhost:4173
-pnpm check       # TypeScript, Biome, testes e build
+pnpm check       # TypeScript, Biome, tests, production build
 ```
 
-Outros comandos:
+Additional commands:
 
 ```sh
-pnpm lint        # valida lint, imports e formatação
-pnpm lint:fix    # aplica correções seguras
-pnpm format     # formata os arquivos suportados pelo Biome
+pnpm lint        # validate code, imports, and formatting
+pnpm lint:fix    # apply safe fixes
+pnpm format
 pnpm test
 pnpm build
 pnpm preview
 ```
 
-Se a porta 4173 estiver ocupada por outra execução, encerre essa execução ou use `pnpm start --port 4175`.
+If another process is already using port 4173, stop that instance or run `pnpm start --port 4175`.
 
-## Organização
+## Source structure
 
-- `src/components/Nome/Nome.tsx` e `index.tsx`: componentes Preact com funções arrow e exportações nomeadas.
-- `src/context/ShowcaseContext.tsx`: preferências, idioma, reprodução e estado compartilhado da apresentação.
-- `src/content.ts`: textos PT/EN; os testes verificam que suas estruturas correspondem.
-- `src/preferences.ts`: resolução das preferências e regras puras testáveis.
-- `src/media.ts`: manifesto dos vídeos e resolução de caminhos compatíveis com subdiretórios.
-- `src/style.css`: identidade visual, responsividade e integração Tailwind.
-- `public/media/`: vídeos otimizados, posters e legendas WebVTT.
-- `tests/`: testes com Vitest.
+```text
+src/
+  app/App/                 # application composition
+  components/
+    ui/                    # Icon, Text, ShouldRender, Button, Pressable
+    layout/                # Header and Footer
+    sections/              # landing-page sections
+    media/                 # inline playback and fullscreen/dialog player
+    illustrations/         # decorative puzzle artwork
+  contexts/                # shared presentation state
+  data/                    # media manifest
+  lib/                     # preference and fullscreen helpers
+  locales/                 # PT/EN resources and i18next setup
+  styles/                  # typography, Tailwind, responsive styles
+```
 
-Stack: **Preact, TypeScript, Vite, Tailwind CSS, i18next e Biome**. As fontes são servidas localmente. O `biome.json` adapta o padrão do JigSolver para esta aplicação estática, sem regras específicas de Next.js.
+Each component has a `Name.tsx` implementation and an `index.tsx` named export. Components use arrow functions. Shared UI primitives follow the JigSolver conventions, adapted for Preact and the showcase's design tokens; [adaptation notes](docs/UI_PRIMITIVES.md) explain their origin and dependency boundaries.
 
-## Publicação no GitHub Pages
+Stack: **Preact, TypeScript, Vite, Tailwind CSS, i18next, Biome, and Vitest**. Fonts are hosted locally. The Biome configuration adapts the JigSolver style rules without its Next.js-specific settings.
 
-O workflow `.github/workflows/pages.yml` instala com lockfile fixo e executa `pnpm check` antes de gerar o artefato de publicação. O deploy depende desse job: falhas de lint, tipagem, testes ou build impedem a publicação. Pull requests apenas validam; a publicação é restrita à branch `main`.
+## GitHub Pages
 
-Depois da revisão do código, configure **Pages → Source → GitHub Actions** no repositório e envie as alterações aprovadas. Não há domínio customizado ou CNAME configurado aqui.
+The workflow installs dependencies with a frozen lockfile and runs `pnpm check` before uploading the deployment artifact. Deployment depends on that successful validation job: type, lint, test, or build failures block publication. Pull requests only validate; deployment is restricted to `main`.
 
-Para validar localmente o caminho usado pelo Pages:
+After reviewing the code, configure **Pages → Source → GitHub Actions** in the repository and push the approved changes. This repository does not configure a custom domain or CNAME.
+
+To test the Pages subdirectory locally:
 
 ```sh
 BASE_PATH=/jigsolver-showcase/ pnpm build
 BASE_PATH=/jigsolver-showcase/ pnpm preview --port 4174
 ```
 
-O caminho no workflow deriva do nome do repositório. Um domínio próprio requer ajustar `BASE_PATH` para `/` e configurar o domínio separadamente.
+The workflow derives the base path from the repository name. A custom domain requires changing `BASE_PATH` to `/` and configuring DNS separately.
 
-## Uso na apresentação
+## Presentation checklist
 
-Os previews iniciam quando entram na área visível e pausam ao sair dela, ao abrir um vídeo ampliado ou ao ocultar a aba. “Pausar animações” interrompe todos os previews; a preferência de redução de movimento inicia a página pausada. Políticas de economia de bateria ou do navegador ainda podem bloquear reprodução automática; os posters e o player ampliado continuam disponíveis.
+Inline videos pause when they leave the viewport, the tab becomes hidden, or an expanded player opens. The global pause control stops every preview; reduced-motion preferences start the page paused. Browser or power-saving policies may still reject autoplay, leaving the poster and manually activated player available.
 
-Teste no tablet físico antes da apresentação e mantenha uma cópia local dos vídeos. A página não possui service worker nem garantia de funcionamento offline. Preserve a identificação dos exemplos sintéticos e as limitações da pesquisa ao atualizar o conteúdo.
+Test on the actual tablet before the presentation and keep local copies of the clips. There is no service worker or offline guarantee. Preserve synthetic-example labels and research limitations when updating the content. Keep development documentation and code comments in English; public-facing content remains bilingual.

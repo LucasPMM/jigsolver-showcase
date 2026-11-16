@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { en, pt } from '../src/content'
+import { en, pt } from '../src/locales/content'
 
 const shape = (value: unknown): unknown => {
   if (Array.isArray(value)) {

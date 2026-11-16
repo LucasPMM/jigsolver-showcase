@@ -1,6 +1,6 @@
 import { existsSync, readFileSync, statSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
-import { media } from '../src/media'
+import { media } from '../src/data/media'
 
 describe('publication assets', () => {
   it('provides a video, poster and both caption languages for every published demo', () => {
