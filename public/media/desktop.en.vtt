@@ -1,7 +1,10 @@
 WEBVTT
 
-00:00.000 --> 00:05.000
-Synthetic demonstration: The Starry Night, 80 pieces.
+00:00.000 --> 00:02.700
+Open the Dinossauro workspace and inspect its reference image.
 
-00:05.000 --> 00:10.000
-Actual replay of reference-guided reconstruction.
+00:02.700 --> 00:09.400
+Inspect the digitized pieces on the board and select one.
+
+00:09.400 --> 00:13.430
+Open its original photograph and extracted piece.

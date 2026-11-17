@@ -26,7 +26,8 @@ export const createPreviewPlayback = <T extends PreviewVideo>(
       return
     }
     element.autoplay = allowed
-    element.preload = allowed ? 'metadata' : 'none'
+    // Keep resource selection stable; visibility controls playback, not loading.
+    element.preload = 'metadata'
     if (!allowed) {
       state.attempt += 1
       state.pending = false

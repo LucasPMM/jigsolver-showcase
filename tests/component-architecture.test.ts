@@ -107,7 +107,7 @@ describe('shared UI boundaries', () => {
     }
     expect(violations).toEqual([])
   })
-  it('does not allocate video resources for hidden preview and dialog players', () => {
+  it('selects preview sources declaratively and mounts dialog media only when open', () => {
     const inline = readFileSync(
       'src/components/media/InlineVideo/InlineVideo.tsx',
       'utf8'
@@ -116,11 +116,27 @@ describe('shared UI boundaries', () => {
       'src/components/media/MediaDialog/MediaDialog.tsx',
       'utf8'
     )
-    expect(inline).toContain('autoPlay={false}')
-    expect(inline).toContain('preload="none"')
+    expect(inline).toContain('src={source}')
+    expect(inline).toContain('autoPlay={!motionPaused && active === null}')
+    expect(inline).toContain('preload="metadata"')
     expect(inline).toContain('createPreviewPlayback')
+    expect(inline).toContain('observePreviewResume(element, window,')
     expect(inline).not.toContain("removeAttribute('src')")
     expect(dialog).toContain('<ShouldRender if={fallbackOpen}>')
+  })
+  it('keeps silent preview and fallback playback independent of external VTT tracks', () => {
+    const paths = [
+      'src/components/media/InlineVideo/InlineVideo.tsx',
+      'src/components/media/MediaDialog/MediaDialog.tsx'
+    ]
+    for (const path of paths) {
+      const source = readFileSync(path, 'utf8')
+      expect(source).not.toContain('<track')
+      expect(source).toContain('aria-label=')
+    }
+    const dialog = readFileSync(paths[1], 'utf8')
+    expect(dialog).toContain('aria-describedby="demo-dialog-description"')
+    expect(dialog).toContain('id="demo-dialog-description"')
   })
   it('uses the shared media components in both ordinary and expanded displays', () => {
     expect(

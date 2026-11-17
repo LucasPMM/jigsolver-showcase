@@ -21,7 +21,7 @@ export const Header = () => {
         </Pressable>
         <nav
           className={menu ? 'navigation open' : 'navigation'}
-          aria-label={lang === 'en' ? 'Main navigation' : 'Navegação principal'}
+          aria-label={c.mainNavigation}
         >
           {c.nav.map((name, i) => (
             <Pressable
@@ -58,12 +58,23 @@ export const Header = () => {
                 🇺🇸
               </Text>
             </Pressable>
+            <Pressable
+              type="button"
+              aria-label="Français"
+              title="Français"
+              onClick={() => language('fr')}
+              aria-pressed={lang === 'fr'}
+            >
+              <Text as="span" aria-hidden="true">
+                🇫🇷
+              </Text>
+            </Pressable>
           </fieldset>
           <Pressable
             type="button"
             className="icon-button theme-toggle"
             title={`${c.theme}: ${theme === 'dark' ? c.dark : c.light}`}
-            aria-label={`${c.theme}: ${theme === 'dark' ? c.dark : c.light}. ${lang === 'en' ? 'Change theme' : 'Alterar tema'}`}
+            aria-label={`${c.theme}: ${theme === 'dark' ? c.dark : c.light}. ${c.changeTheme}`}
             onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
           >
             <Icon name={theme === 'dark' ? 'moon' : 'sun'} />

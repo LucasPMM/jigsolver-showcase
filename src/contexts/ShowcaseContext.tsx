@@ -200,7 +200,26 @@ const useShowcaseState = () => {
     }
     const previousControls = target.controls
     target.controls = true
-    const stopWatching = observeFullscreenExit(target, document, () => close())
+    const resumeAfterEntry = () => {
+      if (
+        attempt !== nativeAttempt.current ||
+        nativeVideo.current !== target ||
+        !target.paused
+      ) {
+        return
+      }
+      // WebKit may pause while transferring the inline element to its native player.
+      void playSilentVideo(target)
+    }
+    const stopWatching = observeFullscreenExit(
+      target,
+      document,
+      () => close(),
+      () => {
+        resumeAfterEntry()
+        requestAnimationFrame(resumeAfterEntry)
+      }
+    )
     nativeCleanup.current = () => {
       stopWatching()
       target.controls = previousControls
@@ -230,6 +249,7 @@ const useShowcaseState = () => {
       }
       if (entered && nativeVideo.current === target) {
         setFallbackOpen(false)
+        resumeAfterEntry()
         return
       }
       if (nativeVideo.current === target) {
@@ -303,7 +323,7 @@ const useShowcaseState = () => {
   const language = (value: Language) => {
     setLang(value)
     const url = new URL(location.href)
-    url.searchParams.set('lang', value === 'en' ? 'en' : 'pt')
+    url.searchParams.set('lang', value === 'pt-BR' ? 'pt' : value)
     history.replaceState(null, '', url)
   }
 

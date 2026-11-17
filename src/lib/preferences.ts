@@ -1,4 +1,4 @@
-export type Language = 'pt-BR' | 'en'
+export type Language = 'pt-BR' | 'en' | 'fr'
 export type Theme = 'light' | 'dark'
 export const resolveLanguage = (
   query: string | null,
@@ -7,6 +7,9 @@ export const resolveLanguage = (
   for (const value of [query, saved]) {
     if (value?.toLowerCase().startsWith('pt')) {
       return 'pt-BR'
+    }
+    if (value?.toLowerCase().startsWith('fr')) {
+      return 'fr'
     }
     if (value?.toLowerCase().startsWith('en')) {
       return 'en'

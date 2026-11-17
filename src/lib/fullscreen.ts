@@ -47,12 +47,20 @@ export type FullscreenEventDocument = EventTarget & {
 export const observeFullscreenExit = (
   video: FullscreenEventVideo,
   document: FullscreenEventDocument,
-  onExit: () => void
+  onExit: () => void,
+  onEnter: () => void = () => {}
 ) => {
   const session = { entered: false }
+  const entered = () => {
+    if (session.entered) {
+      return
+    }
+    session.entered = true
+    onEnter()
+  }
   const standardChange = () => {
     if (document.fullscreenElement === video) {
-      session.entered = true
+      entered()
       return
     }
     if (session.entered) {
@@ -60,9 +68,7 @@ export const observeFullscreenExit = (
       onExit()
     }
   }
-  const webkitBegin = () => {
-    session.entered = true
-  }
+  const webkitBegin = entered
   const webkitEnd = () => {
     session.entered = false
     onExit()

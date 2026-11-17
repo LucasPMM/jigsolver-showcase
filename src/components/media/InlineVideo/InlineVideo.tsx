@@ -1,7 +1,11 @@
 import { useEffect, useRef, useState } from 'preact/hooks'
 import { useShowcase } from '../../../contexts/ShowcaseContext'
 import { asset, media } from '../../../data/media'
-import { playSilentVideo, prepareSilentVideo } from '../../../lib/playback'
+import {
+  observePreviewResume,
+  playSilentVideo,
+  prepareSilentVideo
+} from '../../../lib/playback'
 import { createPreviewPlayback } from '../../../lib/previewPlayback'
 import { ShouldRender } from '../../ui/ShouldRender'
 import { Text } from '../../ui/Text'
@@ -14,11 +18,12 @@ export const InlineVideo = ({
   index: number
   label: string
 }) => {
-  const { motionPaused, active, nativeVideo, lang, c } = useShowcase()
+  const { motionPaused, active, nativeVideo, c } = useShowcase()
   const video = useRef<HTMLVideoElement>(null)
   const [blocked, setBlocked] = useState(false)
   const [failed, setFailed] = useState(false)
   const item = media[index]
+  const source = asset(item.src)
   useEffect(() => {
     const element = video.current
     if (!element) {
@@ -26,7 +31,7 @@ export const InlineVideo = ({
     }
     prepareSilentVideo(element)
     const rect = element.getBoundingClientRect()
-    const playback = createPreviewPlayback(element, asset(item.src), {
+    const playback = createPreviewPlayback(element, source, {
       play: playSilentVideo,
       report: (result) => {
         setBlocked(result === 'blocked')
@@ -64,27 +69,37 @@ export const InlineVideo = ({
     sync()
     document.addEventListener('visibilitychange', sync)
     window.addEventListener('pageshow', sync)
-    window.addEventListener('jigsolver:resume-previews', sync)
+    const stopResume = observePreviewResume(element, window, () => {
+      // Native fullscreen can leave the observer with its transitional geometry.
+      const current = element.getBoundingClientRect()
+      lifecycle.visible =
+        current.bottom > 0 &&
+        current.top < innerHeight &&
+        current.right > 0 &&
+        current.left < innerWidth
+      sync()
+    })
     return () => {
       observer.disconnect()
       document.removeEventListener('visibilitychange', sync)
       window.removeEventListener('pageshow', sync)
-      window.removeEventListener('jigsolver:resume-previews', sync)
+      stopResume()
       playback.dispose(nativeVideo.current !== element)
     }
-  }, [motionPaused, active, nativeVideo, item.src])
+  }, [motionPaused, active, nativeVideo, source])
   return (
     <>
       <Video
         ref={video}
         className="inline-video"
         data-media-index={index}
-        // The controller owns autoplay and a stable, lazily selected source.
-        autoPlay={false}
+        // Select the resource declaratively, like the native player verified on iPad.
+        src={source}
+        autoPlay={!motionPaused && active === null}
         muted
         loop
         playsInline
-        preload="none"
+        preload="metadata"
         poster={asset(item.poster)}
         aria-label={label}
         disablePictureInPicture
@@ -98,15 +113,7 @@ export const InlineVideo = ({
             setFailed(true)
           }
         }}
-      >
-        <track
-          key={`${item.id}-${lang}`}
-          kind="captions"
-          src={asset(`media/${item.id}.${lang === 'en' ? 'en' : 'pt'}.vtt`)}
-          srcLang={lang}
-          label={lang === 'en' ? 'English' : 'Português'}
-        />
-      </Video>
+      />
       <ShouldRender if={(blocked || failed) && !motionPaused}>
         <Text as="span" className="inline-video-hint">
           {failed ? c.mediaUnavailable : c.tapToPlay}

@@ -32,7 +32,7 @@ const setup = () => {
 }
 
 describe('stable preview resource lifecycle', () => {
-  it('does not request an offscreen source', () => {
+  it('does not imperatively assign an offscreen source', () => {
     const { controller, video, state, play } = setup()
     controller.sync(false)
     expect(state.assignments).toBe(0)
@@ -52,6 +52,16 @@ describe('stable preview resource lifecycle', () => {
     controller.sync(true)
     expect(state.assignments).toBe(1)
     expect(play).toHaveBeenCalledTimes(2)
+  })
+  it('preserves an already declared resource across visibility changes', async () => {
+    const { controller, video, state } = setup()
+    video.src = '/clip.mp4'
+    controller.sync(true)
+    await Promise.resolve()
+    controller.sync(false)
+    controller.sync(true)
+    expect(state.assignments).toBe(1)
+    expect(video.preload).toBe('metadata')
   })
   it('does not restart a pending request on duplicate visibility events', () => {
     const { controller, play } = setup()

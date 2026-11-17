@@ -16,6 +16,9 @@ export const Footer = () => {
         JigSolver.
       </Pressable>
       <Text>{c.footer}</Text>
+      <Text as="small" className="footer-version">
+        {c.version} {import.meta.env.VITE_APP_VERSION}
+      </Text>
       <Pressable
         type="button"
         onClick={() => setCredits(!credits)}

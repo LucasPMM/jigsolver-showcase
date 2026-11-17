@@ -1770,3 +1770,14 @@ video.inline-video:fullscreen {
     max-width: 430px;
   }
 }
+
+.footer-version {
+  color: var(--muted);
+  font-size: 10px;
+}
+@media (max-width: 640px) {
+  .footer-version {
+    grid-column: 1 / -1;
+    grid-row: 3;
+  }
+}

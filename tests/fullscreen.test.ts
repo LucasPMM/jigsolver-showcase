@@ -117,3 +117,23 @@ describe('native fullscreen exit lifecycle', () => {
     expect(close).toHaveBeenCalledOnce()
   })
 })
+
+describe('fullscreen entry playback handoff', () => {
+  it('notifies native entry once and leaves subsequent manual pauses alone', () => {
+    const video = new EventTarget()
+    const doc = Object.assign(new EventTarget(), {
+      fullscreenElement: null as unknown
+    })
+    const entered = vi.fn()
+    const exited = vi.fn()
+    const cleanup = observeFullscreenExit(video, doc, exited, entered)
+    video.dispatchEvent(new Event('webkitbeginfullscreen'))
+    doc.fullscreenElement = video
+    doc.dispatchEvent(new Event('fullscreenchange'))
+    video.dispatchEvent(new Event('pause'))
+    expect(entered).toHaveBeenCalledOnce()
+    video.dispatchEvent(new Event('webkitendfullscreen'))
+    expect(exited).toHaveBeenCalledOnce()
+    cleanup()
+  })
+})

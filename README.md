@@ -86,3 +86,9 @@ The workflow derives the base path from the repository name. A custom domain req
 Inline videos pause when they leave the viewport, the tab becomes hidden, or an expanded player opens. The global pause control stops every preview; reduced-motion preferences start the page paused. Browser or power-saving policies may still reject autoplay. The player now reports that state and provides explicit Play/Restart actions, a fullscreen retry after metadata loads, and a direct video link when loading or playback fails. See [iPad playback notes](docs/MEDIA_PLAYBACK.md) for implementation and testing boundaries.
 
 Test on the actual tablet before the presentation and keep local copies of the clips. There is no service worker or offline guarantee. Preserve synthetic-example labels and research limitations when updating the content. Keep development documentation and code comments in English; public-facing content remains bilingual.
+
+### Languages and deployment version
+
+The showcase supports English, Brazilian Portuguese and French, including media captions. Language and theme preferences persist locally; `?lang=fr` opens the French presentation.
+
+The footer displays a build-time version. GitHub Actions supplies its monotonically increasing workflow run number as the patch version (`0.1.<run>`). A retry keeps the same version; a new deployment run increases it. Pull requests and failed runs can leave gaps, so the number is a deployment identifier rather than a count of successful releases. No version-bump commit or repository write permission is needed. Local builds show the package version with `-dev`. Keep this workflow identity when preserving the sequence.

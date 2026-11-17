@@ -14,7 +14,6 @@ import { Video } from '../../ui/Video'
 
 export const MediaDialog = () => {
   const {
-    lang,
     fallbackOpen,
     mediaIndex,
     hasMetadata,
@@ -86,6 +85,8 @@ export const MediaDialog = () => {
             playsInline
             preload="auto"
             poster={asset(item.poster)}
+            aria-label={description.title}
+            aria-describedby="demo-dialog-description"
             onLoadStart={() => {
               setHasMetadata(false)
               setPlayback('loading')
@@ -109,16 +110,7 @@ export const MediaDialog = () => {
               setError(true)
               setPlayback('error')
             }}
-          >
-            <track
-              key={`${item.id}-${lang}`}
-              kind="captions"
-              src={asset(`media/${item.id}.${lang === 'en' ? 'en' : 'pt'}.vtt`)}
-              srcLang={lang}
-              label={lang === 'en' ? 'English' : 'Português'}
-              default
-            />
-          </Video>
+          />
         </ShouldRender>
         <ShouldRender if={error}>
           <Text role="alert">{c.mediaUnavailable}</Text>
@@ -130,7 +122,9 @@ export const MediaDialog = () => {
             {playback === 'blocked' ? c.playbackBlocked : c.loadingVideo}
           </Text>
         </ShouldRender>
-        <Text className="dialog-caption">{description.desc}</Text>
+        <Text id="demo-dialog-description" className="dialog-caption">
+          {description.desc}
+        </Text>
         <div className="dialog-controls">
           <Button
             variant="secondary"

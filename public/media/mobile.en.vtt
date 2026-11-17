@@ -1,7 +1,13 @@
 WEBVTT
 
-00:00.000 --> 00:04.300
-Actual navigation: scanning and border-finding preparation.
+00:00.000 --> 00:04.750
+Open the Dinossauro puzzle from the project list.
 
-00:04.300 --> 00:09.200
-Assembly and lookup modes. No active camera or analysis run.
+00:04.750 --> 00:08.667
+Inspect the reference image and assembly progress.
+
+00:08.667 --> 00:14.250
+Inspect the photographed pieces on the initial board.
+
+00:14.250 --> 00:20.900
+Inspect an individual photographed piece in the piece-details view.

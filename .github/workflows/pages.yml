@@ -24,6 +24,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm check
         env:
+          DEPLOY_RUN_NUMBER: ${{ github.run_number }}
           BASE_PATH: /${{ github.event.repository.name }}/
       - uses: actions/upload-pages-artifact@v3
         if: github.event_name != 'pull_request'

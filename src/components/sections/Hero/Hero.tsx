@@ -9,7 +9,7 @@ import { ShouldRender } from '../../ui/ShouldRender'
 import { Text } from '../../ui/Text'
 
 export const Hero = () => {
-  const { lang, c, open, motionPaused, toggleMotion } = useShowcase()
+  const { c, open, motionPaused, toggleMotion } = useShowcase()
 
   return (
     <section className="hero section-wrap" id="top">
@@ -39,13 +39,7 @@ export const Hero = () => {
           aria-pressed={motionPaused}
           onClick={toggleMotion}
         >
-          {lang === 'en'
-            ? motionPaused
-              ? 'Resume animations'
-              : 'Pause animations'
-            : motionPaused
-              ? 'Retomar animações'
-              : 'Pausar animações'}
+          {motionPaused ? c.resumeAnimations : c.pauseAnimations}
         </Pressable>
         <Text as="span" className="research-badge">
           <Text as="span" />
@@ -59,7 +53,7 @@ export const Hero = () => {
             <i />
             <i />
           </Text>
-          <Text as="span">JigSolver / workspace</Text>
+          <Text as="span">JigSolver / {c.workspace}</Text>
           <Icon name="expand" size={14} />
         </div>
         <Pressable
@@ -80,10 +74,7 @@ export const Hero = () => {
           </Text>
         </div>
         <div className="floating-note">
-          <Icon name="puzzle" />{' '}
-          {lang === 'en'
-            ? 'One piece. A new possibility.'
-            : 'Uma peça. Uma nova possibilidade.'}
+          <Icon name="puzzle" /> {c.piecePossibility}
         </div>
       </div>
     </section>
