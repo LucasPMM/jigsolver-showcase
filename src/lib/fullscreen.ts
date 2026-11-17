@@ -49,22 +49,22 @@ export const observeFullscreenExit = (
   document: FullscreenEventDocument,
   onExit: () => void
 ) => {
-  let entered = false
+  const session = { entered: false }
   const standardChange = () => {
     if (document.fullscreenElement === video) {
-      entered = true
+      session.entered = true
       return
     }
-    if (entered) {
-      entered = false
+    if (session.entered) {
+      session.entered = false
       onExit()
     }
   }
   const webkitBegin = () => {
-    entered = true
+    session.entered = true
   }
   const webkitEnd = () => {
-    entered = false
+    session.entered = false
     onExit()
   }
   document.addEventListener('fullscreenchange', standardChange)

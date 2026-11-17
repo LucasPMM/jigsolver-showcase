@@ -20,6 +20,7 @@ export const InlineVideo = ({
   const { motionPaused, active, nativeVideo, lang, c } = useShowcase()
   const video = useRef<HTMLVideoElement>(null)
   const [blocked, setBlocked] = useState(false)
+  const [failed, setFailed] = useState(false)
   const item = media[index]
   useEffect(() => {
     const element = video.current
@@ -27,38 +28,60 @@ export const InlineVideo = ({
       return
     }
     prepareSilentVideo(element)
-    let disposed = false
     const rect = element.getBoundingClientRect()
-    let visible =
-      rect.bottom > 0 &&
-      rect.top < innerHeight &&
-      rect.right > 0 &&
-      rect.left < innerWidth
-    let pending = false
+    const lifecycle = {
+      disposed: false,
+      pending: false,
+      attempt: 0,
+      visible:
+        rect.bottom > 0 &&
+        rect.top < innerHeight &&
+        rect.right > 0 &&
+        rect.left < innerWidth
+    }
     const sync = () => {
       if (nativeVideo.current === element) {
         return
       }
       const allowed =
-        visible && !document.hidden && !motionPaused && active === null
+        lifecycle.visible &&
+        !document.hidden &&
+        !motionPaused &&
+        active === null
       if (!allowed) {
+        lifecycle.attempt += 1
+        lifecycle.pending = false
         element.pause()
+        // Release offscreen decoders instead of preloading every repeated preview.
+        if (element.hasAttribute('src')) {
+          element.removeAttribute('src')
+          element.load()
+        }
         return
       }
-      if (pending || !element.paused) {
+      if (lifecycle.pending || !element.paused) {
         return
       }
-      pending = true
+      if (!element.hasAttribute('src')) {
+        element.src = asset(item.src)
+        element.load()
+      }
+      lifecycle.pending = true
+      const attempt = ++lifecycle.attempt
       void playSilentVideo(element).then((result) => {
-        pending = false
-        if (!disposed && result !== 'interrupted') {
-          setBlocked(result !== 'playing')
+        if (attempt !== lifecycle.attempt) {
+          return
+        }
+        lifecycle.pending = false
+        if (!lifecycle.disposed && result !== 'interrupted') {
+          setBlocked(result === 'blocked')
+          setFailed(result === 'error')
         }
       })
     }
     const observer = new IntersectionObserver(
       ([entry]) => {
-        visible = entry.isIntersecting
+        lifecycle.visible = entry.isIntersecting
         sync()
       },
       { threshold: 0.15 }
@@ -71,7 +94,7 @@ export const InlineVideo = ({
     element.addEventListener('loadedmetadata', sync)
     element.addEventListener('canplay', sync)
     return () => {
-      disposed = true
+      lifecycle.disposed = true
       observer.disconnect()
       stopResume()
       document.removeEventListener('visibilitychange', sync)
@@ -82,26 +105,27 @@ export const InlineVideo = ({
         element.pause()
       }
     }
-  }, [motionPaused, active, nativeVideo])
+  }, [motionPaused, active, nativeVideo, item.src])
   return (
     <>
       <Video
         ref={video}
         className="inline-video"
         data-media-index={index}
-        src={asset(item.src)}
-        autoPlay={
-          !motionPaused &&
-          (active === null || nativeVideo.current === video.current)
-        }
+        // Visibility owns resource selection and playback; autoplay would race it.
+        autoPlay={false}
         muted
         loop
         playsInline
-        preload={index === 0 ? 'auto' : 'metadata'}
+        preload="none"
         poster={asset(item.poster)}
         aria-label={label}
         disablePictureInPicture
-        onPlaying={() => setBlocked(false)}
+        onPlaying={() => {
+          setBlocked(false)
+          setFailed(false)
+        }}
+        onError={() => setFailed(true)}
       >
         <track
           key={`${item.id}-${lang}`}
@@ -111,9 +135,9 @@ export const InlineVideo = ({
           label={lang === 'en' ? 'English' : 'Português'}
         />
       </Video>
-      <ShouldRender if={blocked && !motionPaused}>
+      <ShouldRender if={(blocked || failed) && !motionPaused}>
         <Text as="span" className="inline-video-hint">
-          {c.tapToPlay}
+          {failed ? c.mediaUnavailable : c.tapToPlay}
         </Text>
       </ShouldRender>
     </>

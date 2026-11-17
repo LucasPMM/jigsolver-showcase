@@ -1,5 +1,10 @@
 import { useShowcase } from '../../../contexts/ShowcaseContext'
-import { asset, media } from '../../../data/media'
+import {
+  adjacentReadyMedia,
+  asset,
+  demoMediaIndices,
+  media
+} from '../../../data/media'
 import { Button } from '../../ui/Button'
 import { Icon } from '../../ui/Icon'
 import { Pressable } from '../../ui/Pressable'
@@ -28,6 +33,9 @@ export const MediaDialog = () => {
     expand
   } = useShowcase()
   const item = media[mediaIndex]
+  const detailIndex = demoMediaIndices.indexOf(mediaIndex)
+  const description =
+    detailIndex >= 0 ? c.demos[detailIndex] : c.featuredVideos[mediaIndex]
   return (
     <dialog
       ref={dialog}
@@ -53,10 +61,10 @@ export const MediaDialog = () => {
         <div className="dialog-header">
           <div>
             <Text as="span" className="micro-label">
-              {c.demos[mediaIndex].category}
+              {description.category}
             </Text>
             <Text as="h3" id="demo-dialog-title">
-              {c.demos[mediaIndex].title}
+              {description.title}
             </Text>
           </div>
           <Pressable
@@ -67,49 +75,51 @@ export const MediaDialog = () => {
             <Icon name="close" />
           </Pressable>
         </div>
-        <Video
-          ref={video}
-          src={asset(item.src)}
-          autoPlay={fallbackOpen}
-          muted
-          loop
-          controls
-          playsInline
-          preload="auto"
-          poster={asset(item.poster)}
-          onLoadStart={() => {
-            setHasMetadata(false)
-            setPlayback('loading')
-          }}
-          onLoadedMetadata={() => setHasMetadata(true)}
-          onPlaying={() => {
-            setPlayback('playing')
-            setError(false)
-          }}
-          onPause={() => {
-            if (fallbackOpen) {
-              setPlayback('paused')
-            }
-          }}
-          onWaiting={() => {
-            if (fallbackOpen) {
+        <ShouldRender if={fallbackOpen}>
+          <Video
+            ref={video}
+            src={asset(item.src)}
+            autoPlay={fallbackOpen}
+            muted
+            loop
+            controls
+            playsInline
+            preload="auto"
+            poster={asset(item.poster)}
+            onLoadStart={() => {
+              setHasMetadata(false)
               setPlayback('loading')
-            }
-          }}
-          onError={() => {
-            setError(true)
-            setPlayback('error')
-          }}
-        >
-          <track
-            key={`${item.id}-${lang}`}
-            kind="captions"
-            src={asset(`media/${item.id}.${lang === 'en' ? 'en' : 'pt'}.vtt`)}
-            srcLang={lang}
-            label={lang === 'en' ? 'English' : 'Português'}
-            default
-          />
-        </Video>
+            }}
+            onLoadedMetadata={() => setHasMetadata(true)}
+            onPlaying={() => {
+              setPlayback('playing')
+              setError(false)
+            }}
+            onPause={() => {
+              if (fallbackOpen) {
+                setPlayback('paused')
+              }
+            }}
+            onWaiting={() => {
+              if (fallbackOpen) {
+                setPlayback('loading')
+              }
+            }}
+            onError={() => {
+              setError(true)
+              setPlayback('error')
+            }}
+          >
+            <track
+              key={`${item.id}-${lang}`}
+              kind="captions"
+              src={asset(`media/${item.id}.${lang === 'en' ? 'en' : 'pt'}.vtt`)}
+              srcLang={lang}
+              label={lang === 'en' ? 'English' : 'Português'}
+              default
+            />
+          </Video>
+        </ShouldRender>
         <ShouldRender if={error}>
           <Text role="alert">{c.mediaUnavailable}</Text>
         </ShouldRender>
@@ -120,13 +130,11 @@ export const MediaDialog = () => {
             {playback === 'blocked' ? c.playbackBlocked : c.loadingVideo}
           </Text>
         </ShouldRender>
-        <Text className="dialog-caption">{c.demos[mediaIndex].desc}</Text>
+        <Text className="dialog-caption">{description.desc}</Text>
         <div className="dialog-controls">
           <Button
             variant="secondary"
-            onClick={() =>
-              open((mediaIndex + media.length - 1) % media.length, false)
-            }
+            onClick={() => open(adjacentReadyMedia(mediaIndex, -1), false)}
             aria-label={c.previous}
           >
             ←
@@ -142,7 +150,7 @@ export const MediaDialog = () => {
           </Button>
           <Button
             variant="secondary"
-            onClick={() => open((mediaIndex + 1) % media.length, false)}
+            onClick={() => open(adjacentReadyMedia(mediaIndex, 1), false)}
             aria-label={c.next}
           >
             →

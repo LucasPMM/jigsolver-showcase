@@ -1,5 +1,5 @@
 // Bump this when replacing public media so returning devices do not reuse stale clips.
-const MEDIA_REVISION = '20261117-showcase-v6'
+const MEDIA_REVISION = '20261117-showcase-v7'
 export const asset = (path: string) => {
   const normalized = path.replace(/^\//, '')
   const revision = normalized.startsWith('media/') ? `?v=${MEDIA_REVISION}` : ''
@@ -21,6 +21,7 @@ export const media = [
   },
   {
     id: 'mobile',
+    portrait: true,
     src: 'media/mobile.mp4',
     poster: 'media/mobile.webp',
     ready: true
@@ -30,5 +31,38 @@ export const media = [
     src: 'media/photographed-assembly.mp4',
     poster: 'media/photographed-assembly.webp',
     ready: true
+  },
+  {
+    id: 'pieces',
+    src: 'media/pieces.mp4',
+    poster: 'media/pieces.webp',
+    ready: false
+  },
+  {
+    id: 'explore',
+    src: 'media/explore.mp4',
+    poster: 'media/explore.webp',
+    ready: false
+  },
+  {
+    id: 'assistant',
+    src: 'media/assistant.mp4',
+    poster: 'media/assistant.webp',
+    portrait: true,
+    ready: false
   }
 ]
+
+/** Hero and device journeys are independent from the four detailed demonstrations. */
+export const demoMediaIndices: ReadonlyArray<number> = [0, 1, 2, 3]
+// Switch the displayed mapping only after all replacement footage is captured and reviewed.
+export const plannedDemoMediaIndices: ReadonlyArray<number> = [4, 5, 6, 3]
+
+export const adjacentReadyMedia = (index: number, direction: 1 | -1) => {
+  const ordered = Array.from(
+    { length: media.length },
+    (_, offset) =>
+      (index + direction * (offset + 1) + media.length) % media.length
+  )
+  return ordered.find((candidate) => media[candidate].ready) ?? index
+}

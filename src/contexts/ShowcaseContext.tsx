@@ -1,6 +1,7 @@
 import { createContext } from 'preact'
 import { flushSync, type PropsWithChildren } from 'preact/compat'
 import { useContext, useEffect, useRef, useState } from 'preact/hooks'
+import { asset, media } from '../data/media'
 import {
   observeFullscreenExit,
   requestMediaFullscreen
@@ -106,6 +107,9 @@ const useShowcaseState = () => {
     })
   }
   const open = (index: number, rememberFocus = true) => {
+    if (!media[index]?.ready) {
+      return
+    }
     const sourceChanged = index !== mediaIndex
     // Native controls can bubble clicks through the original preview wrapper.
     if (nativeVideo.current && !fallbackOpen) {
@@ -137,13 +141,27 @@ const useShowcaseState = () => {
       setError(false)
       setPlayback('loading')
     })
+    const fallback = { requested: false }
     const showFallback = () => {
-      if (attempt !== nativeAttempt.current) {
+      if (attempt !== nativeAttempt.current || fallback.requested) {
         return
       }
+      fallback.requested = true
       nativeCleanup.current?.()
       nativeCleanup.current = null
       nativeVideo.current = null
+      if (document.fullscreenElement === target) {
+        void document.exitFullscreen().catch(() => {})
+      }
+      const safariTarget = target as
+        | (HTMLVideoElement & {
+            webkitDisplayingFullscreen?: boolean
+            webkitExitFullscreen?: () => void
+          })
+        | undefined
+      if (safariTarget?.webkitDisplayingFullscreen) {
+        safariTarget.webkitExitFullscreen?.()
+      }
       target?.pause()
       flushSync(() => setFallbackOpen(true))
       if (!dialog.current?.open) {
@@ -172,6 +190,14 @@ const useShowcaseState = () => {
       showFallback()
       return
     }
+    // A failed preview must reselect its resource inside the user gesture.
+    if (target.error || target.networkState === 3) {
+      target.load()
+    }
+    if (!target.hasAttribute('src')) {
+      target.src = candidates[0]?.getAttribute('src') || asset(media[index].src)
+      target.load()
+    }
     const previousControls = target.controls
     target.controls = true
     const stopWatching = observeFullscreenExit(target, document, () => close())
@@ -180,7 +206,14 @@ const useShowcaseState = () => {
       target.controls = previousControls
     }
     // Use the already-mounted preview; no modal is shown on the native path.
-    void playSilentVideo(target)
+    void playSilentVideo(target).then((result) => {
+      if (attempt !== nativeAttempt.current || result === 'interrupted') {
+        return
+      }
+      if (result === 'error' || result === 'blocked') {
+        showFallback()
+      }
+    })
     void requestMediaFullscreen(target).then((entered) => {
       if (attempt !== nativeAttempt.current) {
         if (document.fullscreenElement === target) {
@@ -188,11 +221,20 @@ const useShowcaseState = () => {
         }
         return
       }
-      if (entered) {
+      // A late fullscreen promise must not cover the recovery player.
+      if (fallback.requested) {
+        if (document.fullscreenElement === target) {
+          void document.exitFullscreen().catch(() => {})
+        }
+        return
+      }
+      if (entered && nativeVideo.current === target) {
         setFallbackOpen(false)
         return
       }
-      showFallback()
+      if (nativeVideo.current === target) {
+        showFallback()
+      }
     })
   }
   const expand = () => open(mediaIndex, false)

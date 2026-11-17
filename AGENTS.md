@@ -9,7 +9,7 @@ JigSolver Showcase is a public, static presentation of an experimental assisted 
 - Preserve existing user changes, including staged changes. Do not commit, push, deploy, change DNS, or modify the private application without an explicit request.
 - Use pnpm, never npm/yarn. Keep pnpm-lock.yaml consistent and avoid additional lockfiles.
 - Use TypeScript, Preact, Tailwind and the existing design language. Keep the site mobile-first and comfortable on presentation tablets.
-- Prefer guard clauses and early returns instead of else branches when they keep control flow clear. Prefer arrow functions throughout. Place each UI component in `src/components/{ui,layout,sections,media,illustrations}/Name/Name.tsx` with a named re-export in `index.tsx`.
+- Prefer const bindings and avoid let. Keep necessary event-lifecycle state in explicit state objects or refs, rather than reassigning local bindings. Prefer guard clauses and early returns instead of else branches when they keep control flow clear. Prefer arrow functions throughout. Place each UI component in `src/components/{ui,layout,sections,media,illustrations}/Name/Name.tsx` with a named re-export in `index.tsx`.
 - Write development documentation and code comments in English; keep public-facing PT/EN copy in `src/locales/content.ts`.
 - Reuse the primitives in `src/components/ui`; consult `docs/UI_PRIMITIVES.md` before copying more source code.
 - Render typography through Text with the correct semantic `as` tag. Use Pressable/Button for actions and links, preserving real anchors via `href`. Use Image and Video instead of raw media tags outside the primitives. Use PropsWithChildren for child-bearing components and ShouldRender for presentation branches when it does not obstruct type narrowing.

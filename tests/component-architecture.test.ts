@@ -14,6 +14,32 @@ const componentFiles = (directory: string): Array<string> =>
   })
 
 describe('shared UI boundaries', () => {
+  it('keeps project code free of let declarations', () => {
+    const violations: Array<string> = []
+    for (const path of [
+      ...componentFiles('src'),
+      ...componentFiles('tests'),
+      'vite.config.ts'
+    ]) {
+      const source = ts.createSourceFile(
+        path,
+        readFileSync(path, 'utf8'),
+        ts.ScriptTarget.Latest,
+        true
+      )
+      const visit = (node: ts.Node) => {
+        if (
+          ts.isVariableDeclarationList(node) &&
+          (node.flags & ts.NodeFlags.Let) !== 0
+        ) {
+          violations.push(relative('.', path))
+        }
+        ts.forEachChild(node, visit)
+      }
+      visit(source)
+    }
+    expect(violations).toEqual([])
+  })
   it('keeps control flow free of else branches', () => {
     const violations: Array<string> = []
     for (const path of componentFiles('src')) {
@@ -80,6 +106,20 @@ describe('shared UI boundaries', () => {
       visit(source)
     }
     expect(violations).toEqual([])
+  })
+  it('does not allocate video resources for hidden preview and dialog players', () => {
+    const inline = readFileSync(
+      'src/components/media/InlineVideo/InlineVideo.tsx',
+      'utf8'
+    )
+    const dialog = readFileSync(
+      'src/components/media/MediaDialog/MediaDialog.tsx',
+      'utf8'
+    )
+    expect(inline).toContain('autoPlay={false}')
+    expect(inline).toContain('preload="none"')
+    expect(inline).toContain("element.removeAttribute('src')")
+    expect(dialog).toContain('<ShouldRender if={fallbackOpen}>')
   })
   it('uses the shared media components in both ordinary and expanded displays', () => {
     expect(

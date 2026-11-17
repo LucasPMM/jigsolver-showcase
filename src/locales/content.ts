@@ -75,6 +75,23 @@ export const pt = {
   demoTitle: 'Um olhar por dentro do JigSolver.',
   demoIntro:
     'Demonstrações curtas em loop. Toque ou use o teclado para abrir em tela cheia.',
+  featuredVideos: [
+    {
+      title: 'Do recorte à proposta de montagem',
+      desc: 'Replay de 80 peças sintéticas e proposta para 30 peças fotografadas. Edição resumida, não o tempo de processamento.',
+      category: 'VISÃO GERAL'
+    },
+    {
+      title: 'Reconstrução guiada no computador',
+      desc: 'Replay da reconstrução guiada de A Noite Estrelada, com 80 peças sintéticas.',
+      category: 'DESKTOP'
+    },
+    {
+      title: 'Conheça o assistente no celular',
+      desc: 'Navegação pelas quatro abas preparatórias, sem câmera ou processamento executado.',
+      category: 'MOBILE'
+    }
+  ],
   demos: [
     {
       title: 'Das peças à proposta de montagem',
@@ -225,6 +242,23 @@ export const en = {
   demoTitle: 'A closer look at JigSolver.',
   demoIntro:
     'Short, looping demonstrations. Tap or use your keyboard to open fullscreen.',
+  featuredVideos: [
+    {
+      title: 'From cutout to proposed assembly',
+      desc: 'An 80-piece synthetic replay and a proposal for 30 photographed pieces. Edited highlights, not processing time.',
+      category: 'OVERVIEW'
+    },
+    {
+      title: 'Guided reconstruction on desktop',
+      desc: 'Replay of a guided reconstruction of The Starry Night, with 80 synthetic pieces.',
+      category: 'DESKTOP'
+    },
+    {
+      title: 'Meet the assistant on mobile',
+      desc: 'Navigation through the four preparation tabs, without active camera or processing.',
+      category: 'MOBILE'
+    }
+  ],
   demos: [
     {
       title: 'From pieces to a proposed assembly',

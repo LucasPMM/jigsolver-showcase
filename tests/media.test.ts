@@ -1,10 +1,16 @@
 import { existsSync, readFileSync, statSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
-import { asset, media } from '../src/data/media'
+import {
+  adjacentReadyMedia,
+  asset,
+  demoMediaIndices,
+  media,
+  plannedDemoMediaIndices
+} from '../src/data/media'
 
 describe('publication assets', () => {
   it('provides a video, poster and both caption languages for every published demo', () => {
-    for (const item of media) {
+    for (const item of media.filter((item) => item.ready)) {
       expect(item.ready).toBe(true)
       for (const path of [
         item.src,
@@ -25,7 +31,7 @@ describe('publication assets', () => {
 describe('media cache revision', () => {
   it('revisions video, poster, and caption URLs while preserving base paths', () => {
     expect(asset('media/mobile.mp4')).toBe(
-      `${import.meta.env.BASE_URL}media/mobile.mp4?v=20261117-showcase-v6`
+      `${import.meta.env.BASE_URL}media/mobile.mp4?v=20261117-showcase-v7`
     )
     expect(asset('/media/mobile.webp')).toContain('mobile.webp?v=')
     expect(asset('media/mobile.pt.vtt')).toContain('.vtt?v=')
@@ -40,4 +46,23 @@ it('ships the submitted Portuguese poster as a nonempty PDF', () => {
   expect(asset('documents/jigsolver-banner.pdf')).toBe(
     `${import.meta.env.BASE_URL}documents/jigsolver-banner.pdf`
   )
+})
+
+it('assigns dedicated footage to each detailed demonstration', () => {
+  expect(plannedDemoMediaIndices.map((index) => media[index].id)).toEqual([
+    'pieces',
+    'explore',
+    'assistant',
+    'photographed-assembly'
+  ])
+  expect(demoMediaIndices.every((index) => media[index].ready)).toBe(true)
+  expect(media[6].portrait).toBe(true)
+  expect(media[2].portrait).toBe(true)
+})
+
+it('skips footage still in preparation when navigating the player', () => {
+  for (const index of media.keys()) {
+    expect(media[adjacentReadyMedia(index, 1)].ready).toBe(true)
+    expect(media[adjacentReadyMedia(index, -1)].ready).toBe(true)
+  }
 })

@@ -1,5 +1,5 @@
 import { useShowcase } from '../../../contexts/ShowcaseContext'
-import { media } from '../../../data/media'
+import { demoMediaIndices, media } from '../../../data/media'
 import { PuzzleArt } from '../../illustrations/PuzzleArt'
 import { InlineVideo } from '../../media/InlineVideo'
 import { Icon } from '../../ui/Icon'
@@ -25,17 +25,23 @@ export const Demos = () => {
         {c.demos.map((d, i) => (
           <Pressable
             type="button"
-            className="demo-card"
+            className={`demo-card${media[demoMediaIndices[i]].portrait ? ' demo-card-portrait' : ''}`}
             aria-label={`${c.fullscreen}: ${d.title}`}
             key={d.title}
-            onClick={() => open(i)}
+            onClick={() => open(demoMediaIndices[i])}
+            disabled={!media[demoMediaIndices[i]].ready}
           >
             <div className="demo-image">
               <ShouldRender
-                if={media[i].ready}
-                fallback={<PuzzleArt stage={i} />}
+                if={media[demoMediaIndices[i]].ready}
+                fallback={
+                  <>
+                    <PuzzleArt stage={i} />
+                    <Text className="pending-label">{c.pendingMedia}</Text>
+                  </>
+                }
               >
-                <InlineVideo index={i} label={d.title} />
+                <InlineVideo index={demoMediaIndices[i]} label={d.title} />
               </ShouldRender>
             </div>
             <div className="demo-text">
