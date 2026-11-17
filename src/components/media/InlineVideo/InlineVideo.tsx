@@ -1,11 +1,8 @@
 import { useEffect, useRef, useState } from 'preact/hooks'
 import { useShowcase } from '../../../contexts/ShowcaseContext'
 import { asset, media } from '../../../data/media'
-import {
-  observePreviewResume,
-  playSilentVideo,
-  prepareSilentVideo
-} from '../../../lib/playback'
+import { playSilentVideo, prepareSilentVideo } from '../../../lib/playback'
+import { createPreviewPlayback } from '../../../lib/previewPlayback'
 import { ShouldRender } from '../../ui/ShouldRender'
 import { Text } from '../../ui/Text'
 import { Video } from '../../ui/Video'
@@ -29,10 +26,14 @@ export const InlineVideo = ({
     }
     prepareSilentVideo(element)
     const rect = element.getBoundingClientRect()
+    const playback = createPreviewPlayback(element, asset(item.src), {
+      play: playSilentVideo,
+      report: (result) => {
+        setBlocked(result === 'blocked')
+        setFailed(result === 'error')
+      }
+    })
     const lifecycle = {
-      disposed: false,
-      pending: false,
-      attempt: 0,
       visible:
         rect.bottom > 0 &&
         rect.top < innerHeight &&
@@ -40,70 +41,36 @@ export const InlineVideo = ({
         rect.left < innerWidth
     }
     const sync = () => {
+      // The expanded player owns this same element until native fullscreen exits.
       if (nativeVideo.current === element) {
         return
       }
-      const allowed =
+      playback.sync(
         lifecycle.visible &&
-        !document.hidden &&
-        !motionPaused &&
-        active === null
-      if (!allowed) {
-        lifecycle.attempt += 1
-        lifecycle.pending = false
-        element.pause()
-        // Release offscreen decoders instead of preloading every repeated preview.
-        if (element.hasAttribute('src')) {
-          element.removeAttribute('src')
-          element.load()
-        }
-        return
-      }
-      if (lifecycle.pending || !element.paused) {
-        return
-      }
-      if (!element.hasAttribute('src')) {
-        element.src = asset(item.src)
-        element.load()
-      }
-      lifecycle.pending = true
-      const attempt = ++lifecycle.attempt
-      void playSilentVideo(element).then((result) => {
-        if (attempt !== lifecycle.attempt) {
-          return
-        }
-        lifecycle.pending = false
-        if (!lifecycle.disposed && result !== 'interrupted') {
-          setBlocked(result === 'blocked')
-          setFailed(result === 'error')
-        }
-      })
+          !document.hidden &&
+          !motionPaused &&
+          active === null
+      )
     }
     const observer = new IntersectionObserver(
       ([entry]) => {
-        lifecycle.visible = entry.isIntersecting
+        lifecycle.visible =
+          entry.isIntersecting && entry.intersectionRatio >= 0.15
         sync()
       },
-      { threshold: 0.15 }
+      { threshold: [0, 0.15] }
     )
     observer.observe(element)
     sync()
-    const stopResume = observePreviewResume(element, window, sync)
     document.addEventListener('visibilitychange', sync)
     window.addEventListener('pageshow', sync)
-    element.addEventListener('loadedmetadata', sync)
-    element.addEventListener('canplay', sync)
+    window.addEventListener('jigsolver:resume-previews', sync)
     return () => {
-      lifecycle.disposed = true
       observer.disconnect()
-      stopResume()
       document.removeEventListener('visibilitychange', sync)
       window.removeEventListener('pageshow', sync)
-      element.removeEventListener('loadedmetadata', sync)
-      element.removeEventListener('canplay', sync)
-      if (nativeVideo.current !== element) {
-        element.pause()
-      }
+      window.removeEventListener('jigsolver:resume-previews', sync)
+      playback.dispose(nativeVideo.current !== element)
     }
   }, [motionPaused, active, nativeVideo, item.src])
   return (
@@ -112,7 +79,7 @@ export const InlineVideo = ({
         ref={video}
         className="inline-video"
         data-media-index={index}
-        // Visibility owns resource selection and playback; autoplay would race it.
+        // The controller owns autoplay and a stable, lazily selected source.
         autoPlay={false}
         muted
         loop
@@ -125,7 +92,12 @@ export const InlineVideo = ({
           setBlocked(false)
           setFailed(false)
         }}
-        onError={() => setFailed(true)}
+        onError={(event) => {
+          // Empty-resource transitions are not evidence of a failed MP4.
+          if (event.currentTarget.error && event.currentTarget.currentSrc) {
+            setFailed(true)
+          }
+        }}
       >
         <track
           key={`${item.id}-${lang}`}

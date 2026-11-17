@@ -118,7 +118,8 @@ describe('shared UI boundaries', () => {
     )
     expect(inline).toContain('autoPlay={false}')
     expect(inline).toContain('preload="none"')
-    expect(inline).toContain("element.removeAttribute('src')")
+    expect(inline).toContain('createPreviewPlayback')
+    expect(inline).not.toContain("removeAttribute('src')")
     expect(dialog).toContain('<ShouldRender if={fallbackOpen}>')
   })
   it('uses the shared media components in both ordinary and expanded displays', () => {
