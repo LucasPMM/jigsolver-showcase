@@ -22,8 +22,7 @@ export const pt = {
   imageUnavailable: 'Não foi possível carregar esta imagem.',
   explore: 'Conhecer o projeto',
   researchBadge: 'Protótipo de pesquisa',
-  heroCaption:
-    'The Bedroom: replay de 99 posições salvas em um quebra-cabeça de 100 peças.',
+  heroCaption: 'The Bedroom: uma montagem digital a partir de posições salvas.',
   scroll: 'Continue explorando',
   journeyEyebrow: 'DA MESA PARA A TELA',
   journeyTitle: 'Peças soltas. Novas possibilidades.',
@@ -54,64 +53,60 @@ export const pt = {
   mobile: 'No celular',
   desktopTitle: 'Veja a montagem de outro ângulo.',
   desktopText:
-    'Percorra o mesmo fluxo do celular em uma área de trabalho ampla: abra o Dinossauro, explore o tabuleiro inicial e inspecione os detalhes de uma peça.',
+    'Um espaço amplo para explorar o quebra-cabeça, comparar peças e observar os detalhes que ajudam a decidir o próximo encaixe.',
   desktopFeatures: [
-    'Abra o projeto Dinossauro',
-    'Selecione peças no tabuleiro inicial',
-    'Observe os detalhes de uma peça'
+    'Visão geral do tabuleiro',
+    'Peças e recortes em detalhe',
+    'Navegação com precisão'
   ],
   mobileTitle: 'Explore o JigSolver no celular.',
   mobileText:
-    'Acompanhe o quebra-cabeça Dinossauro da lista de projetos ao tabuleiro inicial. Explore a imagem de referência e veja uma peça fotografada com seu recorte.',
+    'Leve o projeto para perto das peças. Consulte a imagem de referência e explore o quebra-cabeça em uma interface adaptada ao toque.',
   mobileFeatures: [
-    'Abra um projeto e sua imagem de referência',
-    'Explore o tabuleiro inicial',
-    'Inspecione uma peça e seu recorte'
+    'Projetos sempre à mão',
+    'Referência visual durante a montagem',
+    'Exploração por toque'
   ],
-  mobileNote:
-    'Gravação real enviada pelo autor, editada para destacar a navegação. O tabuleiro inicial não representa uma proposta de montagem calculada.',
-  desktopNote:
-    'Gravação real do mesmo percurso mostrado no celular. A disposição inicial das peças não representa uma reconstrução validada.',
   demoEyebrow: 'MENOS EXPLICAÇÃO. MAIS DESCOBERTA.',
   demoTitle: 'Um olhar por dentro do JigSolver.',
   demoIntro:
-    'Demonstrações curtas em loop. Toque ou use o teclado para abrir em tela cheia.',
+    'Explore as peças, interaja com o tabuleiro e acompanhe o assistente em ação.',
   featuredVideos: [
     {
       title: 'The Bedroom, peça por peça',
-      desc: 'Replay editorial das posições salvas: 99 de 100 peças colocadas, com a lacuna preservada. Não é uma gravação da inferência nem do tempo de processamento.',
+      desc: 'The Bedroom ganha forma em uma animação das posições calculadas para suas peças.',
       category: 'VISÃO GERAL'
     },
     {
       title: 'Explore o JigSolver no computador',
-      desc: 'Dinossauro: visão geral, tabuleiro inicial, seleção e detalhes de uma peça. Mesmo percurso apresentado no celular.',
+      desc: 'Explore o tabuleiro e veja os detalhes de cada peça em uma área de trabalho ampla.',
       category: 'DESKTOP'
     },
     {
       title: 'Explore o JigSolver no celular',
-      desc: 'Fluxo real do Dinossauro: visão geral, tabuleiro inicial e detalhes de uma peça fotografada.',
+      desc: 'Consulte seus projetos, a imagem de referência e os recortes das peças pelo celular.',
       category: 'MOBILE'
     }
   ],
   demos: [
     {
       title: 'Das peças à proposta de montagem',
-      desc: 'Animais Terra: grade de peças, fotografia e recorte transparente ampliados, seguidos da animação de montagem de 20 peças. O recorte não é uma máscara binária; a animação não representa o tempo de processamento.',
+      desc: 'Da fotografia ao recorte, acompanhe as peças de Animais Terra até uma proposta de montagem.',
       category: 'PEÇAS E MONTAGEM'
     },
     {
       title: 'Explore a reconstrução',
-      desc: 'Interação real com o Dinossauro: seleção, movimentação de um grupo, encaixe automático e detalhes das peças. As interações não confirmam a montagem física.',
+      desc: 'Mova peças e grupos pelo tabuleiro, explore encaixes e examine cada detalhe da reconstrução.',
       category: 'INTERAÇÃO'
     },
     {
       title: 'Navegue pelo assistente',
-      desc: 'Câmera real em uso no assistente, com detecções sinalizadas como incertas. A gravação começa com a câmera ativa e não demonstra reconhecimento concluído.',
+      desc: 'Aproxime uma peça da câmera e acompanhe sua análise no assistente, sem sair da mesa de montagem.',
       category: 'MOBILE'
     },
     {
       title: 'Montagem com peças fotografadas',
-      desc: 'Animação da proposta calculada para o Dinossauro de 100 peças. Nenhuma peça foi confirmada fisicamente; a confiança interna de 57% não é uma medida de acurácia.',
+      desc: 'Das fotografias ao tabuleiro: veja a proposta de montagem do Dinossauro, com 100 peças.',
       category: 'QUEBRA-CABEÇA FOTOGRAFADO'
     }
   ],
@@ -127,11 +122,11 @@ export const pt = {
   photosEyebrow: 'PEÇAS REAIS, DESAFIOS REAIS',
   photosTitle: 'Da fotografia ao recorte.',
   photosIntro:
-    'Fotografias reais de peças, com comparação qualitativa de segmentação clássica e MobileSAM. O fundo, a iluminação e as texturas também fazem parte do desafio.',
+    'Veja como o JigSolver separa as peças do fundo e revela seus contornos, preparando cada imagem para a análise da montagem.',
   photoColumns: ['Fotografia original', 'Método clássico', 'MobileSAM'],
   photoOriginal: 'Ver painel original completo',
   photosNote:
-    'Exemplos selecionados de uma execução histórica. Os três quadros de cada linha correspondem à mesma fotografia. Não há gabarito independente nem avaliação de acurácia neste conjunto; os exemplos não demonstram superioridade geral de um método.',
+    'A mesma fotografia, processada por dois métodos: segmentação clássica e MobileSAM.',
   photoExamples: [
     {
       title: 'Peça azul sobre granito',
@@ -153,13 +148,11 @@ export const pt = {
   aboutEyebrow: 'SOBRE O PROJETO',
   aboutTitle: 'Tecnologia para ajudar a enxergar o próximo passo.',
   aboutText:
-    'O JigSolver é um projeto de Ciência da Computação que investiga a montagem assistida de quebra-cabeças físicos. Esta página apresenta experiências do protótipo, sem executar os métodos de processamento no navegador.',
+    'O JigSolver aproxima visão computacional e montagem de quebra-cabeças físicos. Desenvolvido em Ciência da Computação na UFMG, reúne análise de imagens, um tabuleiro interativo e um assistente com câmera em uma experiência visual.',
   author: 'Desenvolvido por Lucas Paulo Martins Mariz',
   university: 'Projeto Orientado em Computação I · UFMG',
   footer: 'Feito de curiosidade. Construído peça por peça.',
-  credits: 'Sobre as demonstrações',
-  creditText:
-    'As mídias incluem um replay editorial de The Bedroom a partir de posições salvas, demonstrações do Dinossauro e de Animais Terra e uma gravação real de câmera com detecções incertas. A pintura de Vincent van Gogh está em domínio público; isso não se estende às ilustrações dos quebra-cabeças fotografados. As animações não mostram o tempo de processamento, e as propostas não garantem reconstrução correta ou universal. A origem e as condições estão documentadas no manifesto de mídia.',
+  credits: 'Projeto no GitHub',
   light: 'Claro',
   dark: 'Escuro',
   theme: 'Tema',
@@ -197,8 +190,7 @@ export const en = {
   imageUnavailable: 'The image could not be loaded.',
   explore: 'Explore the project',
   researchBadge: 'Research prototype',
-  heroCaption:
-    'The Bedroom: a replay of 99 saved positions in a 100-piece puzzle.',
+  heroCaption: 'The Bedroom: a digital assembly replay from saved positions.',
   scroll: 'Keep exploring',
   journeyEyebrow: 'FROM THE TABLE TO THE SCREEN',
   journeyTitle: 'Scattered pieces. New possibilities.',
@@ -229,64 +221,60 @@ export const en = {
   mobile: 'On mobile',
   desktopTitle: 'See the assembly from another angle.',
   desktopText:
-    'Follow the same journey as on mobile in a spacious workspace: open Dinosaur, explore the initial board and inspect an individual piece.',
+    'Room to explore the puzzle, compare pieces and inspect the details that help you choose the next fit.',
   desktopFeatures: [
-    'Open the Dinosaur project',
-    'Select pieces on the initial board',
-    'Inspect individual piece details'
+    'A clear view of the board',
+    'Detailed pieces and cutouts',
+    'Precise navigation'
   ],
   mobileTitle: 'Explore JigSolver on mobile.',
   mobileText:
-    'Follow the Dinosaur puzzle from the project list to the initial board. Explore the reference image and inspect a photographed piece with its cutout.',
+    'Bring your project closer to the pieces. Keep the reference image at hand and explore the puzzle through a touch-friendly interface.',
   mobileFeatures: [
-    'Open a project and its reference image',
-    'Explore the initial board',
-    'Inspect a piece and its cutout'
+    'Projects at your fingertips',
+    'A visual reference while assembling',
+    'Touch-friendly exploration'
   ],
-  mobileNote:
-    'Actual recording supplied by the author, edited to highlight navigation. The initial board is not a computed assembly proposal.',
-  desktopNote:
-    'Actual recording of the same journey shown on mobile. The initial piece arrangement is not a validated reconstruction.',
   demoEyebrow: 'LESS EXPLAINING. MORE EXPLORING.',
   demoTitle: 'A closer look at JigSolver.',
   demoIntro:
-    'Short, looping demonstrations. Tap or use your keyboard to open fullscreen.',
+    'Explore the pieces, interact with the board and see the camera assistant in action.',
   featuredVideos: [
     {
       title: 'The Bedroom, piece by piece',
-      desc: 'An editorial replay of saved positions: 99 of 100 pieces placed, with the gap preserved. This is not a recording of inference or processing time.',
+      desc: 'Watch The Bedroom take shape in an animation of the computed piece positions.',
       category: 'OVERVIEW'
     },
     {
       title: 'Explore JigSolver on desktop',
-      desc: 'Dinosaur: overview, initial board, selection and piece details. The same journey shown on mobile.',
+      desc: 'Explore the board and inspect each piece in a spacious workspace.',
       category: 'DESKTOP'
     },
     {
       title: 'Explore JigSolver on mobile',
-      desc: 'An actual Dinosaur journey: overview, initial board and photographed piece details.',
+      desc: 'Browse your projects, reference image and piece cutouts on your phone.',
       category: 'MOBILE'
     }
   ],
   demos: [
     {
       title: 'From pieces to a proposed assembly',
-      desc: 'Land Animals: the piece grid, an enlarged photograph and transparent cutout, followed by a 20-piece assembly animation. The cutout is not a binary mask; the animation does not represent processing time.',
+      desc: 'From photograph to cutout, follow the Land Animals pieces through to a proposed assembly.',
       category: 'PIECES AND ASSEMBLY'
     },
     {
       title: 'Explore the reconstruction',
-      desc: 'Actual Dinosaur interaction: selection, group dragging, snapping and piece details. These interactions do not confirm the physical assembly.',
+      desc: 'Move pieces and groups around the board, explore connections and inspect the reconstruction in detail.',
       category: 'INTERACTION'
     },
     {
       title: 'Navigate the assistant',
-      desc: 'Actual camera use in the assistant, with detections marked as uncertain. Recording starts with the camera already active and does not demonstrate completed recognition.',
+      desc: 'Bring a piece to the camera and follow its analysis in the assistant, right beside your puzzle.',
       category: 'MOBILE'
     },
     {
       title: 'Assembly from photographed pieces',
-      desc: 'Animation of the computed proposal for the 100-piece Dinosaur puzzle. No pieces have been physically confirmed; the 57% internal confidence is not an accuracy measure.',
+      desc: 'From photographs to the board: explore the proposed assembly of the 100-piece Dinosaur puzzle.',
       category: 'PHOTOGRAPHED PUZZLE'
     }
   ],
@@ -302,11 +290,11 @@ export const en = {
   photosEyebrow: 'REAL PIECES, REAL CHALLENGES',
   photosTitle: 'From photograph to cutout.',
   photosIntro:
-    'Real photographs of puzzle pieces, with a qualitative comparison of classical segmentation and MobileSAM. Backgrounds, lighting, and textures are part of the challenge.',
+    'See how JigSolver separates pieces from their backgrounds and reveals their contours, preparing each image for assembly analysis.',
   photoColumns: ['Original photograph', 'Classical method', 'MobileSAM'],
   photoOriginal: 'View the complete original panel',
   photosNote:
-    'Selected examples from a historical run. All three views in each row come from the same photograph. There is no independent ground truth or accuracy evaluation for this set; these examples do not establish general superiority of either method.',
+    'The same photograph, processed with two approaches: classical segmentation and MobileSAM.',
   photoExamples: [
     {
       title: 'Blue piece on granite',
@@ -328,13 +316,11 @@ export const en = {
   aboutEyebrow: 'ABOUT THE PROJECT',
   aboutTitle: 'Technology to help reveal the next step.',
   aboutText:
-    'JigSolver is a Computer Science project investigating assisted assembly of physical jigsaw puzzles. This page presents prototype experiences without running the image-processing methods in your browser.',
+    'JigSolver brings computer vision to physical jigsaw puzzles. Developed as a Computer Science project at UFMG, it combines image analysis, an interactive board and a camera assistant in a visual experience.',
   author: 'Developed by Lucas Paulo Martins Mariz',
   university: 'Supervised Computer Science Project I · UFMG',
   footer: 'Made of curiosity. Built piece by piece.',
-  credits: 'About the demonstrations',
-  creditText:
-    'The media includes an editorial replay of The Bedroom from saved positions, Dinosaur and Land Animals demonstrations, and an actual camera recording with uncertain detections. The painting by Vincent van Gogh is in the public domain; this does not extend to the photographed puzzle illustrations. Animations do not show processing time, and proposals do not guarantee correct or universal reconstruction. Origins and conditions are documented in the media manifest.',
+  credits: 'Project on GitHub',
   light: 'Light',
   dark: 'Dark',
   theme: 'Theme',
@@ -374,7 +360,7 @@ export const fr: typeof en = {
   explore: 'Découvrir le projet',
   researchBadge: 'Prototype de recherche',
   heroCaption:
-    'La Chambre : animation de 99 positions enregistrées pour un puzzle de 100 pièces.',
+    'La Chambre : une animation de l’assemblage à partir de positions enregistrées.',
   scroll: 'Poursuivre la découverte',
   journeyEyebrow: 'DE LA TABLE À L’ÉCRAN',
   journeyTitle: 'Des pièces éparses. De nouvelles possibilités.',
@@ -405,64 +391,60 @@ export const fr: typeof en = {
   mobile: 'Sur mobile',
   desktopTitle: 'Découvrez l’assemblage sous un autre angle.',
   desktopText:
-    'Suivez le même parcours que sur mobile dans un espace de travail généreux : ouvrez Dinosaure, explorez le plateau initial et examinez les détails d’une pièce.',
+    'Un espace généreux pour explorer le puzzle, comparer les pièces et observer les détails qui aident à choisir le prochain assemblage.',
   desktopFeatures: [
-    'Ouvrez le projet Dinosaure',
-    'Sélectionnez des pièces sur le plateau initial',
-    'Examinez les détails d’une pièce'
+    'Une vue claire du plateau',
+    'Pièces et détourages en détail',
+    'Une navigation précise'
   ],
   mobileTitle: 'Découvrez JigSolver sur mobile.',
   mobileText:
-    'Suivez le puzzle Dinosaure de la liste des projets au plateau initial. Explorez l’image de référence et examinez une pièce photographiée avec son détourage.',
+    'Gardez votre projet près des pièces. Consultez l’image de référence et explorez le puzzle dans une interface adaptée au toucher.',
   mobileFeatures: [
-    'Ouvrez un projet et son image de référence',
-    'Explorez le plateau initial',
-    'Examinez une pièce et son détourage'
+    'Vos projets à portée de main',
+    'Un repère visuel pendant l’assemblage',
+    'Une exploration tactile'
   ],
-  mobileNote:
-    'Enregistrement réel fourni par l’auteur, monté pour mettre en évidence la navigation. Le plateau initial n’est pas une proposition d’assemblage calculée.',
-  desktopNote:
-    'Enregistrement réel du même parcours que sur mobile. La disposition initiale des pièces n’est pas une reconstruction validée.',
   demoEyebrow: 'MOINS D’EXPLICATIONS. PLUS DE DÉCOUVERTES.',
   demoTitle: 'JigSolver de plus près.',
   demoIntro:
-    'De courtes démonstrations en boucle. Touchez ou utilisez le clavier pour ouvrir en plein écran.',
+    'Explorez les pièces, interagissez avec le plateau et découvrez l’assistant caméra en action.',
   featuredVideos: [
     {
       title: 'La Chambre, pièce par pièce',
-      desc: 'Animation éditoriale des positions enregistrées : 99 pièces placées sur 100, avec la case vide conservée. Il ne s’agit pas d’un enregistrement de l’inférence ni du temps de traitement.',
+      desc: 'Voyez La Chambre prendre forme dans une animation des positions calculées pour ses pièces.',
       category: 'VUE D’ENSEMBLE'
     },
     {
       title: 'Découvrez JigSolver sur ordinateur',
-      desc: 'Dinosaure : vue d’ensemble, plateau initial, sélection et détails d’une pièce. Le même parcours que sur mobile.',
+      desc: 'Explorez le plateau et examinez chaque pièce dans un espace de travail généreux.',
       category: 'ORDINATEUR'
     },
     {
       title: 'Découvrez JigSolver sur mobile',
-      desc: 'Parcours réel de Dinosaure : vue d’ensemble, plateau initial et détails d’une pièce photographiée.',
+      desc: 'Consultez vos projets, l’image de référence et les détourages des pièces sur votre téléphone.',
       category: 'MOBILE'
     }
   ],
   demos: [
     {
       title: 'Des pièces à une proposition d’assemblage',
-      desc: 'Animaux terrestres : grille des pièces, photographie et détourage transparent agrandis, puis animation de l’assemblage de 20 pièces. Le détourage n’est pas un masque binaire ; l’animation ne représente pas le temps de traitement.',
+      desc: 'De la photographie au détourage, suivez les pièces d’Animaux terrestres jusqu’à une proposition d’assemblage.',
       category: 'PIÈCES ET ASSEMBLAGE'
     },
     {
       title: 'Explorez la reconstruction',
-      desc: 'Interaction réelle avec Dinosaure : sélection, déplacement d’un groupe, accrochage automatique et détails des pièces. Ces interactions ne confirment pas l’assemblage physique.',
+      desc: 'Déplacez les pièces et les groupes sur le plateau, explorez les raccords et examinez la reconstruction en détail.',
       category: 'INTERACTION'
     },
     {
       title: 'Parcourez l’assistant',
-      desc: 'Utilisation réelle de la caméra dans l’assistant, avec des détections signalées comme incertaines. L’enregistrement commence avec la caméra déjà active et ne démontre pas une reconnaissance aboutie.',
+      desc: 'Présentez une pièce à la caméra et suivez son analyse dans l’assistant, juste à côté de votre puzzle.',
       category: 'MOBILE'
     },
     {
       title: 'Assemblage à partir de pièces photographiées',
-      desc: 'Animation de la proposition calculée pour le puzzle Dinosaure de 100 pièces. Aucune pièce n’a été confirmée physiquement ; la confiance interne de 57 % n’est pas une mesure de précision.',
+      desc: 'Des photographies au plateau : découvrez la proposition d’assemblage du puzzle Dinosaure de 100 pièces.',
       category: 'PUZZLE PHOTOGRAPHIÉ'
     }
   ],
@@ -478,11 +460,11 @@ export const fr: typeof en = {
   photosEyebrow: 'DES PIÈCES RÉELLES, DES DÉFIS RÉELS',
   photosTitle: 'De la photographie au détourage.',
   photosIntro:
-    'Des photographies réelles de pièces, avec une comparaison qualitative de la segmentation classique et de MobileSAM. L’arrière-plan, l’éclairage et les textures font aussi partie du défi.',
+    'Découvrez comment JigSolver sépare les pièces de leur arrière-plan et révèle leurs contours, préparant chaque image à l’analyse de l’assemblage.',
   photoColumns: ['Photographie originale', 'Méthode classique', 'MobileSAM'],
   photoOriginal: 'Voir le panneau original complet',
   photosNote:
-    'Exemples sélectionnés dans une exécution antérieure. Les trois vues de chaque ligne proviennent de la même photographie. Cet ensemble ne dispose ni d’une vérité terrain indépendante ni d’une évaluation de précision ; ces exemples ne démontrent pas la supériorité générale d’une méthode.',
+    'La même photographie, traitée selon deux approches : la segmentation classique et MobileSAM.',
   photoExamples: [
     {
       title: 'Pièce bleue sur du granit',
@@ -504,13 +486,11 @@ export const fr: typeof en = {
   aboutEyebrow: 'À PROPOS DU PROJET',
   aboutTitle: 'La technologie pour mieux voir la prochaine étape.',
   aboutText:
-    'JigSolver est un projet d’informatique qui étudie l’assemblage assisté de puzzles physiques. Cette page présente des expériences du prototype sans exécuter les méthodes de traitement d’images dans votre navigateur.',
+    'JigSolver met la vision par ordinateur au service des puzzles physiques. Développé dans le cadre d’un projet d’informatique à l’UFMG, il réunit analyse d’images, plateau interactif et assistant caméra dans une expérience visuelle.',
   author: 'Développé par Lucas Paulo Martins Mariz',
   university: 'Projet encadré en informatique I · UFMG',
   footer: 'Né de la curiosité. Construit pièce par pièce.',
-  credits: 'À propos des démonstrations',
-  creditText:
-    'Les médias comprennent une animation éditoriale de La Chambre à partir de positions enregistrées, des démonstrations de Dinosaure et d’Animaux terrestres, ainsi qu’un enregistrement réel de caméra avec des détections incertaines. Le tableau de Vincent van Gogh appartient au domaine public ; cela ne s’applique pas aux illustrations des puzzles photographiés. Les animations ne montrent pas le temps de traitement, et les propositions ne garantissent pas une reconstruction correcte ou universelle. Les sources et les conditions sont documentées dans le manifeste des médias.',
+  credits: 'Projet sur GitHub',
   light: 'Clair',
   dark: 'Sombre',
   theme: 'Thème',

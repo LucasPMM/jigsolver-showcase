@@ -611,6 +611,9 @@ h3 {
   gap: 22px;
 }
 .demo-card {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-width: 0;
   text-align: left;
   border: 1px solid var(--line);
   background: var(--surface);
@@ -1715,17 +1718,18 @@ video.inline-video:fullscreen {
   }
 }
 
-/* Portrait demonstrations retain their full frame instead of filling a landscape crop. */
+/* Equal card frames preserve both landscape and portrait demonstrations. */
 .demo-card-portrait .demo-image {
-  aspect-ratio: auto;
   display: grid;
   place-items: center;
-  padding: 24px;
+  padding: 16px;
   background: radial-gradient(ellipse at center, var(--surface), var(--soft));
 }
 .demo-card-portrait .demo-image > video {
-  width: min(100%, 230px);
-  height: auto;
+  width: auto;
+  height: 100%;
+  max-width: 100%;
+  min-height: 0;
   aspect-ratio: 9 / 19.5;
   object-fit: contain;
   border: 5px solid #292a2a;
@@ -1733,7 +1737,8 @@ video.inline-video:fullscreen {
   box-shadow: var(--shadow);
 }
 .demo-grid {
-  align-items: start;
+  align-items: stretch;
+  grid-auto-rows: 1fr;
 }
 .demo-image > video {
   object-fit: contain;
@@ -1752,22 +1757,9 @@ video.inline-video:fullscreen {
   border-radius: 6px;
   font-size: 12px;
 }
-@media (min-width: 641px) {
-  .demo-card-portrait {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    grid-column: 1 / -1;
-    align-items: center;
-  }
-  .demo-card-portrait + .demo-card {
-    display: grid;
-    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-    grid-column: 1 / -1;
-    align-items: center;
-  }
-  .demo-card-portrait .demo-text {
-    padding: 36px;
-    max-width: 430px;
+@media (max-width: 640px) {
+  .demo-grid {
+    grid-auto-rows: auto;
   }
 }
 

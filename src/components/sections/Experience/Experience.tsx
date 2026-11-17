@@ -81,9 +81,6 @@ export const Experience = () => {
                 </li>
               ))}
             </ul>
-            <Text className="fine-print">
-              {device === 'desktop' ? c.desktopNote : c.mobileNote}
-            </Text>
           </div>
         </div>
       </div>
