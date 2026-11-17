@@ -47,3 +47,13 @@ The corresponding higher-resolution original photographs are provided as `photog
 The source is a native 1228×1054, 38-frame animation exported by JigSolver, not a live recording of computation. Playback is slowed to 0.8× (timestamps multiplied by 1.25), with 30 fps frame repetition, no interpolated motion. Native pixels are retained and side padding creates a 1874×1054 frame; this is not higher-resolution source detail. The GIF color palette is preserved. Source GIF is retained in ignored `.media-work/photographed-assembly-source.gif`.
 
 A new solve execution/result was created through the app; photos, piece analysis, puzzle configuration, and physical confirmations were not edited. Printed puzzle artwork licensing is not documented; no public-domain or third-party-rights claim is made. Assets remain for local review; no publication or commit was performed.
+
+
+## Overview replacement (2026-11-17)
+The current overview replaces the Mona Lisa workspace interaction with the complete existing Starry Night replay followed by the photographed sea-life proposal. Sources are the actual clips documented above. A 350 ms crossfade joins them; there is no fabricated piece motion or new reconstruction claim. The 1874×1054 photographed clip is padded, not enlarged. The overview is an edited showcase, not wall-clock computation. Both segments retain their limitations.
+
+## iOS playback limits
+All clips have no audio track and use muted/defaultMuted/playsinline. Browser or Low Power Mode policy can still reject autoplay; no site can guarantee bypassing that policy. Inline previews now resynchronize after native fullscreen dismissal, including a delayed Safari pause event, while respecting reduced motion, visibility, and the site pause control. Physical iOS verification remains required.
+
+## Academic poster
+`public/documents/jigsolver-banner.pdf` is an unchanged copy of the PDF supplied by Lucas on 2026-11-17, linked from the project section in both languages. It is a Portuguese academic poster.

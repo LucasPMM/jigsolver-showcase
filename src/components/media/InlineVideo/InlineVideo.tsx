@@ -1,7 +1,11 @@
 import { useEffect, useRef, useState } from 'preact/hooks'
 import { useShowcase } from '../../../contexts/ShowcaseContext'
 import { asset, media } from '../../../data/media'
-import { playSilentVideo, prepareSilentVideo } from '../../../lib/playback'
+import {
+  observePreviewResume,
+  playSilentVideo,
+  prepareSilentVideo
+} from '../../../lib/playback'
 import { ShouldRender } from '../../ui/ShouldRender'
 import { Text } from '../../ui/Text'
 import { Video } from '../../ui/Video'
@@ -24,7 +28,12 @@ export const InlineVideo = ({
     }
     prepareSilentVideo(element)
     let disposed = false
-    let visible = false
+    const rect = element.getBoundingClientRect()
+    let visible =
+      rect.bottom > 0 &&
+      rect.top < innerHeight &&
+      rect.right > 0 &&
+      rect.left < innerWidth
     let pending = false
     const sync = () => {
       if (nativeVideo.current === element) {
@@ -55,6 +64,8 @@ export const InlineVideo = ({
       { threshold: 0.15 }
     )
     observer.observe(element)
+    sync()
+    const stopResume = observePreviewResume(element, window, sync)
     document.addEventListener('visibilitychange', sync)
     window.addEventListener('pageshow', sync)
     element.addEventListener('loadedmetadata', sync)
@@ -62,6 +73,7 @@ export const InlineVideo = ({
     return () => {
       disposed = true
       observer.disconnect()
+      stopResume()
       document.removeEventListener('visibilitychange', sync)
       window.removeEventListener('pageshow', sync)
       element.removeEventListener('loadedmetadata', sync)
@@ -85,7 +97,7 @@ export const InlineVideo = ({
         muted
         loop
         playsInline
-        preload="metadata"
+        preload={index === 0 ? 'auto' : 'metadata'}
         poster={asset(item.poster)}
         aria-label={label}
         disablePictureInPicture

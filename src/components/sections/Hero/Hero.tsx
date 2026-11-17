@@ -76,7 +76,7 @@ export const Hero = () => {
           <Text as="span" className="status-dot" />
           {c.heroCaption}
           <Text as="span" className="media-index">
-            01—03
+            01—04
           </Text>
         </div>
         <div className="floating-note">

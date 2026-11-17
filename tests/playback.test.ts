@@ -1,5 +1,9 @@
 import { describe, expect, it, vi } from 'vitest'
-import { playSilentVideo, prepareSilentVideo } from '../src/lib/playback'
+import {
+  observePreviewResume,
+  playSilentVideo,
+  prepareSilentVideo
+} from '../src/lib/playback'
 
 const makeVideo = () => ({
   muted: false,
@@ -51,5 +55,29 @@ describe('Safari-compatible silent playback', () => {
     expect(await playSilentVideo(video)).toBe('error')
     video.play.mockReturnValue(undefined)
     expect(await playSilentVideo(video)).toBe('playing')
+  })
+})
+
+describe('preview resumption', () => {
+  it('resynchronizes a delayed native-exit pause and cleans up listeners', () => {
+    const video = Object.assign(new EventTarget(), { controls: false })
+    const page = new EventTarget()
+    const sync = vi.fn()
+    const cleanup = observePreviewResume(video, page, sync)
+    page.dispatchEvent(new Event('jigsolver:resume-previews'))
+    video.dispatchEvent(new Event('pause'))
+    expect(sync).toHaveBeenCalledTimes(2)
+    cleanup()
+    video.dispatchEvent(new Event('pause'))
+    page.dispatchEvent(new Event('jigsolver:resume-previews'))
+    expect(sync).toHaveBeenCalledTimes(2)
+  })
+  it('does not fight the native player pause control', () => {
+    const video = Object.assign(new EventTarget(), { controls: true })
+    const sync = vi.fn()
+    const cleanup = observePreviewResume(video, new EventTarget(), sync)
+    video.dispatchEvent(new Event('pause'))
+    expect(sync).not.toHaveBeenCalled()
+    cleanup()
   })
 })

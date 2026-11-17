@@ -9,6 +9,7 @@ export const pt = {
   intro:
     'Da fotografia à reconstrução digital. Explore como o JigSolver combina visão computacional e inteligência artificial para apoiar a montagem de quebra-cabeças físicos.',
   watch: 'Ver em ação',
+  posterLink: 'Ler o banner acadêmico (PDF · português)',
   fullscreen: 'Abrir vídeo em tela cheia',
   tapToPlay: 'Toque para assistir',
   loadingVideo:
@@ -76,8 +77,8 @@ export const pt = {
     'Demonstrações curtas em loop. Toque ou use o teclado para abrir em tela cheia.',
   demos: [
     {
-      title: 'Explore o workspace',
-      desc: 'Zoom, rotação e enquadramento de uma Mona Lisa sintética de 50 peças já montadas.',
+      title: 'Das peças à proposta de montagem',
+      desc: 'Duas demonstrações reais: replay de 80 peças sintéticas e proposta para 30 peças fotografadas. Edição resumida, não o tempo de processamento.',
       category: 'VISÃO GERAL'
     },
     {
@@ -140,7 +141,7 @@ export const pt = {
   footer: 'Feito de curiosidade. Construído peça por peça.',
   credits: 'Sobre as demonstrações',
   creditText:
-    'As mídias mostram a exploração de uma Mona Lisa sintética já montada, a reconstrução sintética de A Noite Estrelada e a navegação pelas telas preparatórias do assistente. As pinturas de Leonardo da Vinci e Vincent van Gogh estão em domínio público. Não há câmera ativa nem garantia de reconstrução universal. A origem e as condições estão documentadas no manifesto de mídia.',
+    'As mídias mostram a reconstrução sintética de A Noite Estrelada, uma proposta para peças fotografadas e as telas preparatórias do assistente. A pintura de Vincent van Gogh está em domínio público; isso não se estende às ilustrações dos quebra-cabeças fotografados. Não há câmera ativa nem garantia de reconstrução universal. A origem e as condições estão documentadas no manifesto de mídia.',
   light: 'Claro',
   dark: 'Escuro',
   theme: 'Tema',
@@ -158,6 +159,7 @@ export const en = {
   intro:
     'From a photograph to a digital reconstruction. Explore how JigSolver combines computer vision and artificial intelligence to support physical jigsaw puzzle assembly.',
   watch: 'See it in action',
+  posterLink: 'Read the academic poster (PDF · Portuguese)',
   fullscreen: 'Open video in fullscreen',
   tapToPlay: 'Tap to watch',
   loadingVideo:
@@ -225,8 +227,8 @@ export const en = {
     'Short, looping demonstrations. Tap or use your keyboard to open fullscreen.',
   demos: [
     {
-      title: 'Explore the workspace',
-      desc: 'Zoom, rotation, and framing of an already assembled, synthetic 50-piece Mona Lisa.',
+      title: 'From pieces to a proposed assembly',
+      desc: 'Two actual demonstrations: an 80-piece synthetic replay and a proposal for 30 photographed pieces. Edited highlights, not processing time.',
       category: 'OVERVIEW'
     },
     {
@@ -289,7 +291,7 @@ export const en = {
   footer: 'Made of curiosity. Built piece by piece.',
   credits: 'About the demonstrations',
   creditText:
-    'The media shows exploration of an assembled synthetic Mona Lisa, a synthetic reconstruction of The Starry Night, and navigation through the assistant’s preparation screens. The paintings by Leonardo da Vinci and Vincent van Gogh are in the public domain. No active camera or universal reconstruction is represented. Origins and conditions are documented in the media manifest.',
+    'The media shows a synthetic reconstruction of The Starry Night, a proposed assembly of photographed pieces, and the assistant’s preparation screens. The painting by Vincent van Gogh is in the public domain; this does not extend to the photographed puzzle illustrations. No active camera or universal reconstruction is represented. Origins and conditions are documented in the media manifest.',
   light: 'Light',
   dark: 'Dark',
   theme: 'Theme',

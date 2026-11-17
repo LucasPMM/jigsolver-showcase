@@ -1,5 +1,5 @@
 // Bump this when replacing public media so returning devices do not reuse stale clips.
-const MEDIA_REVISION = '20261116-showcase-v5'
+const MEDIA_REVISION = '20261117-showcase-v6'
 export const asset = (path: string) => {
   const normalized = path.replace(/^\//, '')
   const revision = normalized.startsWith('media/') ? `?v=${MEDIA_REVISION}` : ''

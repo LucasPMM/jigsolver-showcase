@@ -36,3 +36,22 @@ export const playSilentVideo = async (
     return name === 'NotAllowedError' ? 'blocked' : 'error'
   }
 }
+
+/** Recheck inline playback after Safari's late fullscreen-exit pause. */
+export const observePreviewResume = (
+  video: EventTarget & { controls: boolean },
+  page: EventTarget,
+  sync: () => void
+) => {
+  const afterPause = () => {
+    if (!video.controls) {
+      sync()
+    }
+  }
+  video.addEventListener('pause', afterPause)
+  page.addEventListener('jigsolver:resume-previews', sync)
+  return () => {
+    video.removeEventListener('pause', afterPause)
+    page.removeEventListener('jigsolver:resume-previews', sync)
+  }
+}

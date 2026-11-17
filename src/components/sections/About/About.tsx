@@ -1,4 +1,6 @@
 import { useShowcase } from '../../../contexts/ShowcaseContext'
+import { asset } from '../../../data/media'
+import { Button } from '../../ui/Button'
 import { GitHubAvatar } from '../../ui/GitHubAvatar'
 import { Icon } from '../../ui/Icon'
 import { Text } from '../../ui/Text'
@@ -18,6 +20,14 @@ export const About = () => {
         </Text>
         <Text as="h2">{c.aboutTitle}</Text>
         <Text>{c.aboutText}</Text>
+        <Button
+          variant="secondary"
+          href={asset('documents/jigsolver-banner.pdf')}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {c.posterLink}
+        </Button>
         <div className="author">
           <GitHubAvatar username="LucasPMM" name="Lucas Paulo Martins Mariz" />
           <div>

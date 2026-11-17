@@ -241,7 +241,6 @@ const useShowcaseState = () => {
     nativeCleanup.current?.()
     nativeCleanup.current = null
     nativeVideo.current = null
-    target?.pause()
     video.current?.pause()
     if (target && document.fullscreenElement === target) {
       void document.exitFullscreen().catch(() => {})
@@ -249,9 +248,15 @@ const useShowcaseState = () => {
     if (target?.webkitDisplayingFullscreen) {
       target.webkitExitFullscreen?.()
     }
-    setFallbackOpen(false)
-    setActive(null)
-    setPlayback('idle')
+    flushSync(() => {
+      setFallbackOpen(false)
+      setActive(null)
+      setPlayback('idle')
+    })
+    // Signal mounted previews after the native/fullscreen state has been cleared.
+    requestAnimationFrame(() => {
+      window.dispatchEvent(new Event('jigsolver:resume-previews'))
+    })
   }
   const language = (value: Language) => {
     setLang(value)
