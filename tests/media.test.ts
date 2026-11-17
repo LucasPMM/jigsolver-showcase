@@ -32,7 +32,7 @@ describe('publication assets', () => {
 describe('media cache revision', () => {
   it('revisions video, poster, and caption URLs while preserving base paths', () => {
     expect(asset('media/mobile.mp4')).toBe(
-      `${import.meta.env.BASE_URL}media/mobile.mp4?v=20261117-showcase-v9`
+      `${import.meta.env.BASE_URL}media/mobile.mp4?v=20261117-showcase-v10`
     )
     expect(asset('/media/mobile.webp')).toContain('mobile.webp?v=')
     expect(asset('media/mobile.pt.vtt')).toContain('.vtt?v=')
