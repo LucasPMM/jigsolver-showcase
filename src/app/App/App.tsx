@@ -6,6 +6,7 @@ import { Demos } from '../../components/sections/Demos'
 import { Experience } from '../../components/sections/Experience'
 import { Hero } from '../../components/sections/Hero'
 import { Journey } from '../../components/sections/Journey'
+import { MethodGuide } from '../../components/sections/MethodGuide'
 import { Photographed } from '../../components/sections/Photographed'
 import { Pressable } from '../../components/ui/Pressable'
 import { useShowcase } from '../../contexts/ShowcaseContext'
@@ -23,6 +24,7 @@ export const App = () => {
         <Experience />
         <Demos />
         <Photographed />
+        <MethodGuide />
         <About />
       </main>
       <Footer />

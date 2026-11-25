@@ -49,7 +49,7 @@ const useShowcaseState = () => {
   const video = useRef<HTMLVideoElement>(null)
   const opener = useRef<HTMLElement | null>(null)
   const c = i18n.getResourceBundle(lang, 'translation') as typeof pt
-  const anchors = ['journey', 'experience', 'demos', 'photographed']
+  const anchors = ['journey', 'experience', 'demos', 'photographed', 'methods']
   useEffect(() => {
     document.documentElement.lang = lang
     void i18n.changeLanguage(lang)

@@ -1,5 +1,14 @@
+import { methodGuideEn, methodGuideFr, methodGuidePt } from './methodGuide'
+
 export const pt = {
-  nav: ['Como funciona', 'Experiências', 'Demonstrações', 'Fotografias'],
+  nav: [
+    'Como funciona',
+    'Experiências',
+    'Demonstrações',
+    'Fotografias',
+    'Métodos'
+  ],
+  methodGuide: methodGuidePt,
   skip: 'Pular para o conteúdo',
   menu: 'Abrir navegação',
   closeMenu: 'Fechar navegação',
@@ -167,7 +176,8 @@ export const pt = {
   version: 'Versão'
 }
 export const en = {
-  nav: ['How it works', 'Experiences', 'Demos', 'Photographs'],
+  nav: ['How it works', 'Experiences', 'Demos', 'Photographs', 'Methods'],
+  methodGuide: methodGuideEn,
   skip: 'Skip to content',
   menu: 'Open navigation',
   closeMenu: 'Close navigation',
@@ -336,7 +346,14 @@ export const en = {
 }
 
 export const fr: typeof en = {
-  nav: ['Fonctionnement', 'Expériences', 'Démonstrations', 'Photographies'],
+  nav: [
+    'Fonctionnement',
+    'Expériences',
+    'Démonstrations',
+    'Photographies',
+    'Méthodes'
+  ],
+  methodGuide: methodGuideFr,
   skip: 'Aller au contenu',
   menu: 'Ouvrir la navigation',
   closeMenu: 'Fermer la navigation',
