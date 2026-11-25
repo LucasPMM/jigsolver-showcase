@@ -1,0 +1,1 @@
+export { SideProfileArt } from './SideProfileArt'

@@ -13,6 +13,7 @@ type Guide = {
   topics: Record<
     | 'otsu'
     | 'mobileSam'
+    | 'sideProfile'
     | 'rgba'
     | 'registration'
     | 'contrast'
@@ -21,6 +22,7 @@ type Guide = {
     | 'packing',
     Topic
   >
+  sideLabels: readonly [string, string, string]
   left: string
   right: string
   piece: string
@@ -58,6 +60,16 @@ export const methodGuidePt: Guide = {
         'Estimar uma caixa em volta da peça.',
         'Combinar a caixa com as características extraídas pelo TinyViT.',
         'Usar a máscara prevista para remover o fundo.'
+      ]
+    },
+    sideProfile: {
+      title: 'Caracterização das laterais',
+      summary:
+        'No lado de cima, o primeiro pixel da máscara em cada coluna forma o perfil. As partes retas junto aos cantos ajudam a estimar a linha de base.',
+      steps: [
+        'Comparar o perfil com a linha tracejada na faixa central (35% a 65%).',
+        'Se o desvio máximo for menor que 3,2% da maior dimensão do corpo da peça, o lado é reto.',
+        'Nos demais casos, predomínio para fora indica saliência. Predomínio para dentro indica reentrância.'
       ]
     },
     rgba: {
@@ -121,6 +133,7 @@ export const methodGuidePt: Guide = {
       ]
     }
   },
+  sideLabels: ['Reto', 'Saliência', 'Reentrância'],
   left: 'Esquerda',
   right: 'Direita',
   piece: 'Peça',
@@ -158,6 +171,16 @@ export const methodGuideEn: Guide = {
         'Estimate a bounding box around the piece.',
         'Combine the box with features from TinyViT.',
         'Use the predicted mask to remove the background.'
+      ]
+    },
+    sideProfile: {
+      title: 'Classifying piece sides',
+      summary:
+        'For the top side, the first mask pixel in each column forms the profile. The straight shoulders near the corners help estimate its baseline.',
+      steps: [
+        'Compare the profile to the dashed line across the central band (35% to 65%).',
+        'If the maximum deviation is under 3.2% of the piece body’s largest dimension, the side is flat.',
+        'Otherwise, a dominant outward deviation indicates a tab. A dominant inward deviation indicates a recess.'
       ]
     },
     rgba: {
@@ -221,6 +244,7 @@ export const methodGuideEn: Guide = {
       ]
     }
   },
+  sideLabels: ['Flat', 'Tab', 'Recess'],
   left: 'Left',
   right: 'Right',
   piece: 'Piece',
@@ -259,6 +283,16 @@ export const methodGuideFr: Guide = {
         'Estimer un rectangle autour de la pièce.',
         'Combiner le rectangle avec les caractéristiques extraites par TinyViT.',
         'Utiliser le masque prédit pour supprimer le fond.'
+      ]
+    },
+    sideProfile: {
+      title: 'Classification des côtés',
+      summary:
+        'Pour le côté supérieur, le premier pixel du masque dans chaque colonne forme le profil. Les segments droits proches des coins aident à estimer la ligne de base.',
+      steps: [
+        'Comparer le profil à la ligne en pointillés dans la bande centrale (de 35 % à 65 %).',
+        'Si l’écart maximal est inférieur à 3,2 % de la plus grande dimension du corps de la pièce, le côté est plat.',
+        'Sinon, un écart dominant vers l’extérieur indique un tenon. Vers l’intérieur, il indique un creux.'
       ]
     },
     rgba: {
@@ -322,6 +356,7 @@ export const methodGuideFr: Guide = {
       ]
     }
   },
+  sideLabels: ['Plat', 'Tenon', 'Creux'],
   left: 'Gauche',
   right: 'Droite',
   piece: 'Pièce',

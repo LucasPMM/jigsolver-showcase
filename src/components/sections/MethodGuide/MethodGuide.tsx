@@ -1,11 +1,14 @@
 import { useShowcase } from '../../../contexts/ShowcaseContext'
 import { MethodArt } from '../../illustrations/MethodArt'
+import { RefinementArt } from '../../illustrations/RefinementArt'
+import { SideProfileArt } from '../../illustrations/SideProfileArt'
 import { Text } from '../../ui/Text'
 import { HungarianExample } from '../HungarianExample'
+import { ProcessingFlow } from '../ProcessingFlow'
 
 const groups = [
-  ['otsu', 'mobileSam'],
-  ['rgba', 'registration', 'contrast', 'hungarian'],
+  ['otsu', 'mobileSam', 'sideProfile'],
+  ['rgba', 'registration', 'contrast', 'hungarian', 'refinement'],
   ['edges', 'packing']
 ] as const
 
@@ -30,6 +33,7 @@ export const MethodGuide = () => {
           {guide.illustrationNote}
         </Text>
       </div>
+      <ProcessingFlow />
       {groups.map((group, i) => (
         <section
           className="method-group"
@@ -41,10 +45,20 @@ export const MethodGuide = () => {
           </Text>
           <div className="method-grid">
             {group.map((id) => {
-              const { title, summary, steps } = guide.topics[id]
+              const { title, summary, steps } =
+                id === 'refinement'
+                  ? {
+                      ...c.processingFlow.refinement,
+                      summary: c.processingFlow.refinement.detail
+                    }
+                  : guide.topics[id]
               return (
                 <article
-                  className="method-card"
+                  className={
+                    id === 'sideProfile' || id === 'refinement'
+                      ? 'method-card method-side-card'
+                      : 'method-card'
+                  }
                   aria-labelledby={`method-${id}`}
                   key={id}
                 >
@@ -54,6 +68,16 @@ export const MethodGuide = () => {
                   <Text className="method-summary">{summary}</Text>
                   {id === 'hungarian' ? (
                     <HungarianExample />
+                  ) : id === 'refinement' ? (
+                    <div className="method-art">
+                      <RefinementArt
+                        labels={c.processingFlow.refinement.labels}
+                      />
+                    </div>
+                  ) : id === 'sideProfile' ? (
+                    <div className="method-art">
+                      <SideProfileArt labels={guide.sideLabels} />
+                    </div>
                   ) : (
                     <div className="method-art">
                       <MethodArt kind={id} />

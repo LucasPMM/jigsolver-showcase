@@ -1,4 +1,9 @@
 import { methodGuideEn, methodGuideFr, methodGuidePt } from './methodGuide'
+import {
+  processingFlowEn,
+  processingFlowFr,
+  processingFlowPt
+} from './processingFlow'
 
 export const pt = {
   nav: [
@@ -9,6 +14,7 @@ export const pt = {
     'Métodos'
   ],
   methodGuide: methodGuidePt,
+  processingFlow: processingFlowPt,
   skip: 'Pular para o conteúdo',
   menu: 'Abrir navegação',
   closeMenu: 'Fechar navegação',
@@ -178,6 +184,7 @@ export const pt = {
 export const en = {
   nav: ['How it works', 'Experiences', 'Demos', 'Photographs', 'Methods'],
   methodGuide: methodGuideEn,
+  processingFlow: processingFlowEn,
   skip: 'Skip to content',
   menu: 'Open navigation',
   closeMenu: 'Close navigation',
@@ -354,6 +361,7 @@ export const fr: typeof en = {
     'Méthodes'
   ],
   methodGuide: methodGuideFr,
+  processingFlow: processingFlowFr,
   skip: 'Aller au contenu',
   menu: 'Ouvrir la navigation',
   closeMenu: 'Fermer la navigation',

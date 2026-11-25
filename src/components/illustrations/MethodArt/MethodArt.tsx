@@ -9,6 +9,9 @@ type ArtKind =
   | 'contrast'
   | 'edges'
   | 'packing'
+  | 'capture'
+  | 'assignment'
+  | 'assembly'
 const pieceOutline = 'M0 0H48V13C67 6 67 36 48 29V42H0Z'
 const points = [
   [8, 11],
@@ -365,6 +368,63 @@ export const MethodArt = ({ kind }: { kind: ArtKind }) => {
       </g>
     </>
   )
+  const capture = (
+    <>
+      <g transform="translate(26 9)">
+        <rect width="120" height="94" rx="9" fill="#414b40" />
+        <g transform="translate(35 26)">{cropped}</g>
+        <path
+          d="M13 31V14h17m60 0h17v17m0 32v17H90m-60 0H13V63"
+          fill="none"
+          stroke="#d0efd8"
+          stroke-width="2"
+        />
+      </g>
+      <g transform="translate(171 10) scale(.73)">
+        <use href={ref} />
+      </g>
+    </>
+  )
+  const assignment = (
+    <>
+      <g transform="translate(27 30)">
+        {Array.from({ length: 9 }, (_, i) => (
+          <rect
+            key={i}
+            x={(i % 3) * 19}
+            y={Math.floor(i / 3) * 17}
+            width="17"
+            height="15"
+            fill={i % 4 === 0 ? '#a3d7b7' : 'var(--surface)'}
+            stroke="var(--line)"
+            rx="2"
+          />
+        ))}
+      </g>
+      <Arrow x={106} />
+      <g transform="translate(158 14) scale(.67)">
+        <use href={ref} opacity=".43" />
+        <path
+          d="M48 0v126M96 0v126M0 42h144M0 84h144"
+          stroke="#fff6de"
+          stroke-width="2"
+        />
+        <g transform="translate(48 42)">
+          {cropped}
+          {outline}
+        </g>
+      </g>
+    </>
+  )
+  const assembly = (
+    <g transform="translate(89 7) scale(.78)">
+      <use href={ref} />
+      <g fill="none" stroke="#53493d" stroke-width="1.5" opacity=".75">
+        <path d="M48 0v126M96 0v42m0 42v42M0 42h144M0 84h144" />
+        <path transform="translate(48 42)" d={pieceOutline} />
+      </g>
+    </g>
+  )
   const artwork: Record<ArtKind, ComponentChildren> = {
     rgba: align,
     registration: registration,
@@ -372,7 +432,10 @@ export const MethodArt = ({ kind }: { kind: ArtKind }) => {
     otsu: segment(false),
     mobileSam: segment(true),
     edges: <EdgeArt />,
-    packing: <PolyArt />
+    packing: <PolyArt />,
+    capture,
+    assignment,
+    assembly
   }
   return (
     <svg
