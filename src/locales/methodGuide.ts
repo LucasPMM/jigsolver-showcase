@@ -4,7 +4,21 @@ type Topic = {
   steps: readonly [string, string, string]
 }
 
+type SynthesisCue = { title: string; detail: string }
+
 type Guide = {
+  related: {
+    exampleLabel: string
+    applications: Record<'edges' | 'packing', string>
+    synthesis: {
+      title: string
+      summary: string
+      neighbors: SynthesisCue
+      poses: SynthesisCue
+      reference: SynthesisCue
+      result: string
+    }
+  }
   eyebrow: string
   title: string
   intro: string
@@ -31,6 +45,37 @@ type Guide = {
 }
 
 export const methodGuidePt: Guide = {
+  related: {
+    exampleLabel: 'Exemplo de aplicação',
+    applications: {
+      edges:
+        'Gerar um mapa de jogo com peças de terreno cujas estradas ou rios continuem de uma célula para a outra.',
+      packing:
+        'Planejar, em vista de cima, a disposição de objetos em L ou T numa bandeja com espaço limitado, sem sobreposição.'
+    },
+    synthesis: {
+      title: 'O que essas ideias têm a ver com o JigSolver?',
+      summary:
+        'A analogia está nas restrições da montagem. Cada problema tem suas próprias regras.',
+      neighbors: {
+        title: 'Vizinhos compatíveis',
+        detail:
+          'A correspondência de bordas ajuda a entender por que o encaixe depende dos dois lados em contato.'
+      },
+      poses: {
+        title: 'Posição e rotação',
+        detail:
+          'O empacotamento ilustra como escolher onde pôr e como girar cada peça sem disputar o mesmo espaço.'
+      },
+      reference: {
+        title: 'Imagem de referência',
+        detail:
+          'Na montagem guiada, o JigSolver também compara a aparência da peça com a imagem completa.'
+      },
+      result:
+        'A referência orienta a atribuição das peças às células. O refinamento avalia os contatos entre vizinhas.'
+    }
+  },
   eyebrow: 'GUIA VISUAL',
   title: 'Por dentro do JigSolver',
   illustrationNote: 'Ilustrações esquemáticas para explicar os métodos.',
@@ -142,6 +187,37 @@ export const methodGuidePt: Guide = {
 }
 
 export const methodGuideEn: Guide = {
+  related: {
+    exampleLabel: 'Example application',
+    applications: {
+      edges:
+        'Generate a game map from terrain tiles so that roads or rivers continue across cell boundaries.',
+      packing:
+        'Plan how to arrange L- or T-shaped objects in a tray with limited space, viewed from above, without overlap.'
+    },
+    synthesis: {
+      title: 'How do these ideas connect to JigSolver?',
+      summary:
+        'The analogy is in the assembly constraints. Each problem has its own rules.',
+      neighbors: {
+        title: 'Compatible neighbors',
+        detail:
+          'Edge matching illustrates why a fit depends on both sides that touch.'
+      },
+      poses: {
+        title: 'Position and rotation',
+        detail:
+          'Packing illustrates how to place and rotate shapes without competing for the same space.'
+      },
+      reference: {
+        title: 'Reference image',
+        detail:
+          'In guided assembly, JigSolver also compares the appearance of each piece with the complete image.'
+      },
+      result:
+        'The reference guides piece-to-cell assignment. Refinement evaluates contacts between neighboring pieces.'
+    }
+  },
   eyebrow: 'VISUAL GUIDE',
   title: 'Inside JigSolver',
   illustrationNote: 'Schematic illustrations of how the methods work.',
@@ -253,6 +329,37 @@ export const methodGuideEn: Guide = {
 }
 
 export const methodGuideFr: Guide = {
+  related: {
+    exampleLabel: 'Exemple d’application',
+    applications: {
+      edges:
+        'Générer une carte de jeu à partir de tuiles de terrain, en prolongeant les routes ou les rivières d’une case à l’autre.',
+      packing:
+        'Vu de dessus, disposer des objets en L ou en T dans un plateau de taille limitée, sans chevauchement.'
+    },
+    synthesis: {
+      title: 'Quel est le lien avec JigSolver ?',
+      summary:
+        'L’analogie porte sur les contraintes d’assemblage. Chaque problème a ses propres règles.',
+      neighbors: {
+        title: 'Voisins compatibles',
+        detail:
+          'La correspondance des bords illustre pourquoi un raccord dépend des deux côtés qui se touchent.'
+      },
+      poses: {
+        title: 'Position et rotation',
+        detail:
+          'L’empaquetage illustre comment placer et orienter les formes sans qu’elles occupent le même espace.'
+      },
+      reference: {
+        title: 'Image de référence',
+        detail:
+          'Dans l’assemblage guidé, JigSolver compare aussi l’apparence de chaque pièce à l’image complète.'
+      },
+      result:
+        'La référence guide l’affectation des pièces aux cases. Le raffinement évalue les contacts entre pièces voisines.'
+    }
+  },
   eyebrow: 'GUIDE VISUEL',
   title: 'Les coulisses de JigSolver',
   illustrationNote:

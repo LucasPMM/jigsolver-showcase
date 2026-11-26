@@ -2,9 +2,11 @@ import { useShowcase } from '../../../contexts/ShowcaseContext'
 import { MethodArt } from '../../illustrations/MethodArt'
 import { RefinementArt } from '../../illustrations/RefinementArt'
 import { SideProfileArt } from '../../illustrations/SideProfileArt'
+import { ShouldRender } from '../../ui/ShouldRender'
 import { Text } from '../../ui/Text'
 import { HungarianExample } from '../HungarianExample'
 import { ProcessingFlow } from '../ProcessingFlow'
+import { RelatedProblemsSynthesis } from '../RelatedProblemsSynthesis'
 
 const groups = [
   ['otsu', 'mobileSam', 'sideProfile'],
@@ -52,6 +54,10 @@ export const MethodGuide = () => {
                       summary: c.processingFlow.refinement.detail
                     }
                   : guide.topics[id]
+              const application =
+                id === 'edges' || id === 'packing'
+                  ? guide.related.applications[id]
+                  : undefined
               return (
                 <article
                   className={
@@ -88,10 +94,19 @@ export const MethodGuide = () => {
                       <li key={step}>{step}</li>
                     ))}
                   </ol>
+                  <ShouldRender if={Boolean(application)}>
+                    <div className="method-application">
+                      <Text as="strong">{guide.related.exampleLabel}</Text>
+                      <Text className="method-summary">{application}</Text>
+                    </div>
+                  </ShouldRender>
                 </article>
               )
             })}
           </div>
+          <ShouldRender if={group[0] === 'edges'}>
+            <RelatedProblemsSynthesis />
+          </ShouldRender>
         </section>
       ))}
     </section>

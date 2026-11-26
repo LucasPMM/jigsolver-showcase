@@ -1,5 +1,6 @@
 import type { ComponentChildren } from 'preact'
 import { useId } from 'preact/hooks'
+import { edgeMatchingPairs, solvedEdgeGrid } from '../../../data/edgeMatching'
 
 type ArtKind =
   | 'otsu'
@@ -20,12 +21,6 @@ const points = [
   [33, 33]
 ] as const
 const marks = ['#f5c56b', '#b0e3bc', '#fbbc94', '#cbb9ef']
-const edgeTiles = [
-  [0, 1, 2, 0],
-  [0, 0, 3, 1],
-  [2, 4, 0, 0],
-  [3, 0, 0, 4]
-]
 const edgeColors = ['#e1dfd5', '#a3d7b7', '#b1d3e3', '#d8bee2', '#f3cd8d']
 const facets = [
   '0,0 32,0 16,16',
@@ -100,9 +95,9 @@ const EdgeTile = ({
 }: {
   x: number
   y: number
-  edges: Array<number>
+  edges: ReadonlyArray<number>
 }) => (
-  <g transform={`translate(${x} ${y})`}>
+  <g transform={`translate(${x} ${y})`} data-edges={edges.join(',')}>
     {edges.map((edge, i) => (
       <polygon
         key={facets[i]}
@@ -132,10 +127,16 @@ const EdgeTile = ({
 
 const EdgeArt = () => (
   <>
-    <EdgeTile x={16} y={33} edges={edgeTiles[0]} />
-    <EdgeTile x={48} y={33} edges={edgeTiles[1]} />
-    <EdgeTile x={109} y={33} edges={edgeTiles[0]} />
-    <EdgeTile x={141} y={33} edges={[0, 0, 1, 3]} />
+    <g data-edge-example="valid">
+      <EdgeTile x={16} y={33} edges={edgeMatchingPairs.valid[0]} />
+      <EdgeTile x={48} y={33} edges={edgeMatchingPairs.valid[1]} />
+      <path d="M45 49h6" stroke="#3c4e45" stroke-width="1.2" />
+    </g>
+    <g data-edge-example="invalid">
+      <EdgeTile x={109} y={33} edges={edgeMatchingPairs.invalid[0]} />
+      <EdgeTile x={141} y={33} edges={edgeMatchingPairs.invalid[1]} />
+      <path d="M141 43v12" stroke="var(--method-alert)" stroke-width="2" />
+    </g>
     <path
       d="m40 78 5 5 9-10"
       fill="none"
@@ -148,14 +149,22 @@ const EdgeArt = () => (
       stroke="var(--method-alert)"
       stroke-width="3"
     />
-    {edgeTiles.map((edges, i) => (
-      <EdgeTile
-        key={edges.join()}
-        x={208 + (i % 2) * 32}
-        y={19 + Math.floor(i / 2) * 32}
-        edges={edges}
+    <g data-edge-example="solved">
+      {solvedEdgeGrid.map((edges, i) => (
+        <EdgeTile
+          key={edges.join()}
+          x={208 + (i % 2) * 32}
+          y={19 + Math.floor(i / 2) * 32}
+          edges={edges}
+        />
+      ))}
+      <path
+        d="M237 35h6M224 48v6M256 48v6M237 67h6"
+        stroke="#3c4e45"
+        stroke-width="1.2"
+        stroke-linecap="round"
       />
-    ))}
+    </g>
   </>
 )
 
